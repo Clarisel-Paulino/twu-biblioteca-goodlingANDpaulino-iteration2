@@ -36,13 +36,6 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void printMenuOptionsTest() {
-        testBib.printMenuOptions();
-
-        assertEquals(outputStream.toString(), "Select an option from the menu below:\n");
-    }
-
-    @Test
     public void shouldPrintBookListWithOneBook(){
         //add relevant books here
         Book oneBook = new Book("1984", "George Orwell", 1961);
@@ -80,5 +73,12 @@ public class BibliotecaAppTest {
 
         assertThat(outputStream.toString(), is(oneBook.getTitle() + ',' +
                 oneBook.getAuthor() + ',' + Integer.toString(oneBook.getYear()) + '\n'));
+    }
+
+    @Test
+    public void shouldDisplayMenuWithOptionsBeforeBookList(){
+        testBib.displayMenu();
+        assertThat(outputStream.toString(), is("Select an option from the menu below: \n1. See List of Books\n2. Exit Biblioteca\n"));
+
     }
 }

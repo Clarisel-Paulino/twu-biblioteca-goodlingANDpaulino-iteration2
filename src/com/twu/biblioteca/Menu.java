@@ -10,10 +10,6 @@ public class Menu {
     private int selection;
 
     public Menu() {
-        initializeMenu();
-    }
-
-    private void initializeMenu() {
         ArrayList<String> menuOptions = new ArrayList<String>();
         menuOptions.add("1. See List of Books");
         menuOptions.add("2. Exit Biblioteca");

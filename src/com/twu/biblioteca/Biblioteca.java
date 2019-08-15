@@ -26,11 +26,6 @@ public class Biblioteca {
                 "Your librarians Megan and Clarisel at your service.");
     }
 
-    //menu options
-    public void printMenuOptions(){
-        printStream.println("Select an option from the menu below:");
-    }
-
     //book titles
     public void printBookList(){
         for(Book bk : bookList){
@@ -39,8 +34,14 @@ public class Biblioteca {
             String year = Integer.toString(bk.getYear());
 
             printStream.println(title + ',' + author + ',' + year);
-
         }
     }
 
+    //display menu
+    public void displayMenu(){
+        printStream.println("Select an option from the menu below: ");
+        for(String option : menu.getMenuOptions()){
+            printStream.println(option);
+        }
+    }
 }
