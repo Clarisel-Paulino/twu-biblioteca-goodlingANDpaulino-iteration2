@@ -35,7 +35,7 @@ public class Biblioteca {
         for(Book bk : bookList){
             String title = bk.getTitle();
 
-            printStream.print(title);
+            printStream.println(title);
         }
     }
 }
