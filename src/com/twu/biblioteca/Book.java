@@ -15,4 +15,12 @@ public class Book {
     public String getTitle(){
         return this.title;
     }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
 }

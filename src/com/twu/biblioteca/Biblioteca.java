@@ -31,11 +31,16 @@ public class Biblioteca {
         printStream.println("Select an option from the menu below:");
     }
 
+    //book titles
     public void printBookList(){
         for(Book bk : bookList){
             String title = bk.getTitle();
+            String author = bk.getAuthor();
+            String year = Integer.toString(bk.getYear());
 
-            printStream.println(title);
+            printStream.println(title + ',' + author + ',' + year);
+
         }
     }
+
 }
