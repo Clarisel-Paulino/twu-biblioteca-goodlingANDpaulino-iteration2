@@ -7,14 +7,17 @@ public class Biblioteca {
 
     private PrintStream printStream;
     private Menu menu;
-    private ArrayList<String> bookList;
+    private ArrayList<Book> bookList;
 
     //constructer
     public Biblioteca(PrintStream printStream){
         this.printStream = printStream;
         this.menu = new Menu();
-        this.bookList = new ArrayList<String>();
-        bookList.add("1984");
+        this.bookList = new ArrayList<Book>();
+    }
+
+    public void setBookList(ArrayList<Book> books){
+        this.bookList = books;
     }
 
     //welcome message
