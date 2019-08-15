@@ -3,6 +3,6 @@ package com.twu.biblioteca;
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        System.out.println("Hey this is a test!");
+        System.out.println("Let's try that again!");
     }
 }
