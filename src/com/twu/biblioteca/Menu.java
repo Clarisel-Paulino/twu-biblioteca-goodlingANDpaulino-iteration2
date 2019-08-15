@@ -9,38 +9,30 @@ public class Menu {
     private ArrayList<String> menuOptions;
     private int selection;
 
-    public Menu(){
+    public Menu() {
         initializeMenu();
     }
 
-    public ArrayList<String> getMenuOptions(){
+    public ArrayList<String> getMenuOptions() {
         return this.menuOptions;
     }
 
-    private void initializeMenu(){
+    private void initializeMenu() {
         ArrayList<String> menuOptions = new ArrayList<String>();
         menuOptions.add("1. See List of Books");
         menuOptions.add("2. Exit Biblioteca");
         this.menuOptions = menuOptions;
     }
 
-    public String printMenuOptions(){
+    public String printMenuOptions() {
         return menuOptions.toString();
     }
 
-
-
-//    public int printOptions(){
-//        int selection;
-//        Scanner input = new Scanner(System.in);
-//
-//        /***************************************************/
-//
-//        System.out.println("What would you like to do?");
-//        System.out.println("-------------------------\n");
-//        System.out.println("1 - View list of books");
-//
-//        selection = input.nextInt();
-//        return selection;
-//    }
+    public int selectMenuOption() {
+        int selection;
+        Scanner input = new Scanner(System.in);
+        selection = input.nextInt();
+        return selection;
+    }
 }
+
