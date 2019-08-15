@@ -21,11 +21,14 @@ public class Biblioteca {
 
     //menu options
     public void printMenuOptions(){
-        printStream.println("Select an option from the menu below " + menu.printMenuOptions());
+        printStream.println("Select an option from the menu below:\n " + menu.printMenuOptions());
     }
 
-//    public static void main(String[] args) {
-//        Biblioteca BA = new Biblioteca(new PrintStream(System.out));
-//    }
+    public static void main(String[] args) {
+        Biblioteca BA = new Biblioteca(new PrintStream(System.out));
+        BA.printWelcomeMessage();
+        BA.printMenuOptions();
+        
+    }
 
 }
