@@ -32,6 +32,10 @@ public class Biblioteca {
     }
 
     public void printBookList(){
-        printStream. println(bookList);
+        for(Book bk : bookList){
+            String title = bk.getTitle();
+
+            printStream.print(title);
+        }
     }
 }
