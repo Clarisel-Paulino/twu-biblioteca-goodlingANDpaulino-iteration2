@@ -13,10 +13,6 @@ public class Menu {
         initializeMenu();
     }
 
-    public ArrayList<String> getMenuOptions() {
-        return this.menuOptions;
-    }
-
     private void initializeMenu() {
         ArrayList<String> menuOptions = new ArrayList<String>();
         menuOptions.add("1. See List of Books");
@@ -24,8 +20,8 @@ public class Menu {
         this.menuOptions = menuOptions;
     }
 
-    public String printMenuOptions() {
-        return menuOptions.toString();
+    public ArrayList<String> getMenuOptions() {
+        return menuOptions;
     }
 
     public int selectMenuOption() {

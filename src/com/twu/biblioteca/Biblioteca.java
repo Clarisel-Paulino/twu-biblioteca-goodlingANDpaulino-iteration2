@@ -1,16 +1,20 @@
 package com.twu.biblioteca;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class Biblioteca {
 
     private PrintStream printStream;
     private Menu menu;
+    private ArrayList<String> bookList;
 
     //constructer
     public Biblioteca(PrintStream printStream){
         this.printStream = printStream;
         this.menu = new Menu();
+        this.bookList = new ArrayList<String>();
+        bookList.add("1984");
     }
 
     //welcome message
@@ -21,14 +25,10 @@ public class Biblioteca {
 
     //menu options
     public void printMenuOptions(){
-        printStream.println("Select an option from the menu below:\n " + menu.printMenuOptions());
+        printStream.println("Select an option from the menu below:");
     }
 
-    public static void main(String[] args) {
-        Biblioteca BA = new Biblioteca(new PrintStream(System.out));
-        BA.printWelcomeMessage();
-        BA.printMenuOptions();
-        
+    public void printBookList(){
+        printStream. println(bookList);
     }
-
 }
