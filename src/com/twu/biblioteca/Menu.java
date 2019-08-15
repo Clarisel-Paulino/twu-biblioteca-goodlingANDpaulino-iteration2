@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Menu {
 
     private ArrayList<String> menuOptions;
+    private int selection;
 
     public Menu(){
         initializeMenu();

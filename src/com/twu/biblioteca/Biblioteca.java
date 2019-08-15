@@ -24,4 +24,8 @@ public class Biblioteca {
         printStream.println("Select an option from the menu below " + menu.printMenuOptions());
     }
 
+//    public static void main(String[] args) {
+//        Biblioteca BA = new Biblioteca(new PrintStream(System.out));
+//    }
+
 }
