@@ -11,6 +11,7 @@ public class Biblioteca {
     private Menu menu;
     private ArrayList<Book> bookList;
     private String menuSelection;
+    private String bookSelection;
     private ScannerWrapper scanner;
 
     //constructer
@@ -68,21 +69,23 @@ public class Biblioteca {
         }
     }
 
-    public String selectBook(){
+    public void selectBook(){
         printStream.println("SELECT A BOOK");
-        String bookSelection = scanner.nextLine();
-        return bookSelection;
+
+        //save as book selection
+        bookSelection = scanner.nextLine();
+        checkOut();
     }
 
-    public void checkOut(int bookIndex){
-        // Fetch selected book
+    public void checkOut(){
+        // Fetch selected book from bookList
+        int bookIndex = Integer.parseInt(bookSelection);
         Book book = bookList.get(bookIndex);
 
         // Check if book is checked out
         if (book.getCheckedOut())
             // if so, return error message
             printStream.println("Book is already checked out. Please choose from list above");
-
         else {
             // mark book as checkedOut
             book.setCheckedOut();

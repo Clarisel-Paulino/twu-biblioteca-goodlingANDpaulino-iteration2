@@ -13,10 +13,5 @@ public class BibliotecaApp {
 
         // Ask user to select a menu option
         BA.acceptOptionInput();
-
-        // Ask user to select a book index
-        //int bookSelection = BA.selectBook();
-        // Checkout selected book
-        //BA.checkOut(bookSelection);
     }
 }
