@@ -126,5 +126,19 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
     }
 
+    @Test
+    public void shouldCheckOutBook(){
+        Book bk = bookList.get(0);
+        bk.checkOut();
+
+        testBib.printBookList();
+        assertThat(bk.checkedOut, is(true));
+
+    }
+    @Test
+    public void shouldRemoveBookFromBookList(){
+       
+
+    }
 
 }
