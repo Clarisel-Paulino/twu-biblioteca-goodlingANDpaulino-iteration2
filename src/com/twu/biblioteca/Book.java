@@ -6,11 +6,16 @@ public class Book {
     private boolean checkedOut;
     private String title;
 
+    //TODO add index
+
     public Book(final String title, final String author, final int year){
         this.title = title;
         this.author = author;
         this.year = year;
         this.checkedOut = false;
+
+
+
     }
 
     public String getTitle(){
