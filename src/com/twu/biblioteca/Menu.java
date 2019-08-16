@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class Menu {
 
     private ArrayList<String> menuOptions;
-    private int selection;
 
     public Menu() {
         ArrayList<String> menuOptions = new ArrayList<String>();
@@ -18,13 +17,6 @@ public class Menu {
 
     public ArrayList<String> getMenuOptions() {
         return menuOptions;
-    }
-
-    public int selectMenuOption() {
-        int selection;
-        Scanner input = new Scanner(System.in);
-        selection = input.nextInt();
-        return selection;
     }
 }
 

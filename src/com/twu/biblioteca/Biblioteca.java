@@ -2,12 +2,14 @@ package com.twu.biblioteca;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Biblioteca {
 
     private PrintStream printStream;
     private Menu menu;
     private ArrayList<Book> bookList;
+    private int selection;
 
     //constructer
     public Biblioteca(PrintStream printStream){
@@ -43,5 +45,28 @@ public class Biblioteca {
         for(String option : menu.getMenuOptions()){
             printStream.println(option);
         }
+
     }
+
+    //select menu option
+    public void acceptOptionInput() {
+        printStream.println("PRESS A KEY");
+        Scanner input = new Scanner(System.in);
+        selection = input.nextInt();
+    }
+
+    // Input : user selection
+    // Displays appropriate response
+
+    public void makeSelection(int selection){
+
+         switch (selection){
+             case 1:
+                 break;
+             default:
+                 printStream.println("Error: Invalid Selection. Try Again." );
+                 break;
+         }
+    }
+
 }

@@ -79,6 +79,21 @@ public class BibliotecaAppTest {
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
         assertThat(outputStream.toString(), is("Select an option from the menu below: \n1. See List of Books\n2. Exit Biblioteca\n"));
+    }
 
+    //HOW DO WE TEST THIS RAW INPUT FUNCTION?!?!
+//    @Test
+//    public void shouldStoreUserSelection(){
+//        int expected = 1;
+//
+//        //assertThat(testBib.selectMenuOption(), is(expected));
+//    }
+
+    @Test
+    public void shouldShowErrorForInvalidSelection(){
+        int select = 2;
+        testBib.makeSelection(select);
+
+        assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
     }
 }

@@ -9,5 +9,6 @@ public class BibliotecaApp {
         Biblioteca BA = new Biblioteca(new PrintStream(System.out));
         BA.printWelcomeMessage();
         BA.displayMenu();
+        //BA.selectMenuOption();
     }
 }
