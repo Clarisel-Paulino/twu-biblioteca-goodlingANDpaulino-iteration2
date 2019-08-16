@@ -19,12 +19,21 @@ public class BibliotecaAppTest {
     private ByteArrayOutputStream outputStream;
     private PrintStream out;
     private Biblioteca testBib;
+    private ArrayList<Book> bookList;
 
     @Before
     public void setUp() throws Exception {
         outputStream = new ByteArrayOutputStream();
         out = new PrintStream(outputStream);
         testBib = new Biblioteca(out);
+
+        //initialize list of books
+        Book oneBook = new Book("Crazy", "Kevin", 1010);
+        Book twoBook = new Book("Bible", "Jesus", -1);
+        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
+
+        bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook));
+        testBib.setBookList(bookList);
     }
 
     @Test
@@ -35,44 +44,51 @@ public class BibliotecaAppTest {
                 "Your librarians Megan and Clarisel at your service.\n");
     }
 
+//    @Test
+//    public void shouldPrintBookListWithOneBook(){
+//        //add relevant books here
+//        Book oneBook = new Book("1984", "George Orwell", 1961);
+//
+//        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
+//
+//        testBib.setBookList(bl);
+//        testBib.printBookList();
+//
+//        assertThat(outputStream.toString(), is(oneBook.getTitle()));
+//    }
+
+//    @Test
+//    public void shouldPrintTwoBookTitlesWhenIStarttheApp() {
+//        //add relevant books here
+//        Book oneBook = new Book("Crazy", "Kevin", 1010);
+//        Book twoBook = new Book("Bible", "Jesus", -1);
+//
+//        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook, twoBook));
+//
+//        testBib.setBookList(bl);
+//        testBib.printBookList();
+//
+//        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
+//    }
+
     @Test
-    public void shouldPrintBookListWithOneBook(){
-        //add relevant books here
-        Book oneBook = new Book("1984", "George Orwell", 1961);
+    public void shouldPrintBooksWithTitleAuthorAndYear(){
 
-        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
-
-        testBib.setBookList(bl);
         testBib.printBookList();
 
-        assertThat(outputStream.toString(), is(oneBook.getTitle()));
-    }
+        StringBuffer expected = new StringBuffer();
 
-    @Test
-    public void shouldPrintTwoBookTitlesWhenIStarttheApp() {
-        //add relevant books here
-        Book oneBook = new Book("Crazy", "Kevin", 1010);
-        Book twoBook = new Book("Bible", "Jesus", -1);
+        // For each book in the list of books, add title, author and year to
+        // expected string
+        for (Book book : bookList){
+            String title = book.getTitle();
+            String author = book.getAuthor();
+            String year = Integer.toString(book.getYear());
 
-        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook, twoBook));
+            expected.append(title + "," + author + "," + year + '\n');
+        }
 
-        testBib.setBookList(bl);
-        testBib.printBookList();
-
-        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
-    }
-
-    @Test
-    public void shouldPrintBookWithTitleAuthorAndYear(){
-        Book oneBook = new Book("Bible", "Jesus", -1);
-
-        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
-
-        testBib.setBookList(bl);
-        testBib.printBookList();
-
-        assertThat(outputStream.toString(), is(oneBook.getTitle() + ',' +
-                oneBook.getAuthor() + ',' + Integer.toString(oneBook.getYear()) + '\n'));
+        assertThat(outputStream.toString(), is(expected.toString()));
     }
 
     @Test
