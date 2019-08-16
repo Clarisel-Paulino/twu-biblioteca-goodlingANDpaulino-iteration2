@@ -34,7 +34,13 @@ public class Biblioteca {
 
     //book titles, authors, years
     public void printBookList(){
-        printStream.println(bookList.toString());
+        ArrayList<Book> availBooks = new ArrayList<Book>();
+        for (Book bk : bookList){
+            if (!bk.getCheckedOut()){
+                availBooks.add(bk);
+            }
+        }
+        printStream.println(availBooks.toString());
     }
 
     //display menu

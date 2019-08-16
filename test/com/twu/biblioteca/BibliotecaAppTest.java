@@ -101,10 +101,17 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is(expected.toString()));
     }
 
+    //TODO FIX ME
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
-        assertThat(outputStream.toString(), is("Select an option from the menu below: \n1. See List of Books\n2. Exit Biblioteca\n"));
+        String expected1 = "Select an option from the menu below: \n";
+        String expected2 = "1. See List of Books\n";
+        String expected3 = "2. Exit Biblioteca\n";
+
+        //verify(mockPrintStream).println(expected1);
+        verify(mockPrintStream).println(expected1 + expected2 + expected3);
+        //verify(mockPrintStream).println(expected3);
     }
 
     @Test
