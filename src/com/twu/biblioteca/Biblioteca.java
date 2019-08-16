@@ -4,7 +4,6 @@ import com.sun.deploy.security.SelectableSecurityManager;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Biblioteca {
 
@@ -15,9 +14,10 @@ public class Biblioteca {
     private ScannerWrapper scanner;
 
     //constructer
-    public Biblioteca(PrintStream printStream){
+    public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
         this.printStream = printStream;
         this.menu = new Menu();
+        this.scanner = scanner;
         this.bookList = new ArrayList<Book>();
     }
 
@@ -57,8 +57,7 @@ public class Biblioteca {
     //select menu option
     public void acceptOptionInput() {
         printStream.println("PRESS A KEY");
-        Scanner input = new Scanner(System.in);
-        menuSelection = input.nextInt();
+        menuSelection = scanner.nextInt();
         makeSelection();
     }
 
@@ -84,8 +83,7 @@ public class Biblioteca {
 
     public int selectBook(){
         printStream.println("SELECT A BOOK");
-        Scanner input = new Scanner(System.in);
-        int bookSelection = input.nextInt();
+        int bookSelection = scanner.nextInt();
         return bookSelection;
     }
 

@@ -30,8 +30,11 @@ public class BibliotecaAppTest {
         outputStream = new ByteArrayOutputStream();
         out = new PrintStream(outputStream);
 
+        //initialize scanner
+        mockScannerWrapper = mock(ScannerWrapper.class);
+
         //initialize library instance
-        testBib = new Biblioteca(out);
+        testBib = new Biblioteca(out, mockScannerWrapper);
 
         //initialize list of books
         Book oneBook = new Book("Crazy", "Kevin", 1010);
@@ -40,8 +43,7 @@ public class BibliotecaAppTest {
         bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
         testBib.setBookList(bookList);
 
-        //initialize scanner
-        mockScannerWrapper = mock(ScannerWrapper.class);
+
     }
 
     @Test
@@ -108,18 +110,16 @@ public class BibliotecaAppTest {
     @Test
     public void shouldStoreUserSelection(){
         int expected = 1;
+        //when (mockScanner.nextLine()).thenReturn("2"));
+        //verify(mockPrintStream, never()).println(expectedBook.toString())
 
-        //assertThat(testBib.selectMenuOption(), is(expected));
+        //assertThat(testBib.menuSelection, expected);
     }
-    //INPUT TEST
-    //when (mockScanner.nextLine()).thenReturn("2"));
-    // never called
-    //verify(mockPrintStream, never()).println(expectedBook.toString())
 
     @Test
     public void shouldShowBookListForSelectionOne(){
         //mock scanner for input here
-        when(mockScannerWrapper.nextLine()).thenReturn("1");
+        when(mockScannerWrapper.nextInt()).thenReturn(1);
         int select = 1;
         testBib.makeSelection();
 

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ScannerWrapper {
 
-    public String nextLine() {
-        return new Scanner(System.in).nextLine();
+    public int nextInt() {
+        return new Scanner(System.in).nextInt();
     }
 }
