@@ -11,7 +11,8 @@ public class Biblioteca {
     private PrintStream printStream;
     private Menu menu;
     private ArrayList<Book> bookList;
-    //private int selection;
+    private int menuSelection;
+    private ScannerWrapper scanner;
 
     //constructer
     public Biblioteca(PrintStream printStream){
@@ -51,25 +52,23 @@ public class Biblioteca {
         for(String option : menu.getMenuOptions()){
             printStream.println(option);
         }
-
     }
 
     //select menu option
-    public int acceptOptionInput() {
+    public void acceptOptionInput() {
         printStream.println("PRESS A KEY");
         Scanner input = new Scanner(System.in);
-        int selection = input.nextInt();
-        return selection;
+        menuSelection = input.nextInt();
+        makeSelection();
     }
 
     // Input : user selection
     // Displays appropriate response
-    public void makeSelection(int selection){
-
-         switch (selection){
+    public void makeSelection(){
+         switch (menuSelection){
              case 1:
                  printBookList();
-                 //selectBook();
+                 selectBook();
                  break;
 
              case 2:
@@ -82,6 +81,7 @@ public class Biblioteca {
                  break;
          }
     }
+
     public int selectBook(){
         printStream.println("SELECT A BOOK");
         Scanner input = new Scanner(System.in);
@@ -105,5 +105,4 @@ public class Biblioteca {
             printStream.println("You successfully checked out book: " + bookIndex);
         }
     }
-
 }

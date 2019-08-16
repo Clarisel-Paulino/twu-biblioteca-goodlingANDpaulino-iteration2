@@ -16,7 +16,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-
 public class BibliotecaAppTest {
 
     private ByteArrayOutputStream outputStream;
@@ -27,20 +26,22 @@ public class BibliotecaAppTest {
 
     @Before
     public void setUp() throws Exception {
+        //initialize print stream
         outputStream = new ByteArrayOutputStream();
         out = new PrintStream(outputStream);
-        testBib = new Biblioteca(out);
 
-        //Scanner mockScanner = mock(ScannerWrapper.class);
+        //initialize library instance
+        testBib = new Biblioteca(out);
 
         //initialize list of books
         Book oneBook = new Book("Crazy", "Kevin", 1010);
         Book twoBook = new Book("Bible", "Jesus", -1);
         Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
-
         bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
         testBib.setBookList(bookList);
 
+        //initialize scanner
+        mockScannerWrapper = mock(ScannerWrapper.class);
     }
 
     @Test
@@ -80,7 +81,6 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldPrintBooksWithTitleAuthorAndYear(){
-
         testBib.printBookList();
 
         StringBuffer expected = new StringBuffer();
@@ -105,12 +105,12 @@ public class BibliotecaAppTest {
     }
 
     //TODO Test raw input function
-//    @Test
-//    public void shouldStoreUserSelection(){
-//        int expected = 1;
-//
-//        //assertThat(testBib.selectMenuOption(), is(expected));
-//    }
+    @Test
+    public void shouldStoreUserSelection(){
+        int expected = 1;
+
+        //assertThat(testBib.selectMenuOption(), is(expected));
+    }
     //INPUT TEST
     //when (mockScanner.nextLine()).thenReturn("2"));
     // never called
@@ -119,8 +119,9 @@ public class BibliotecaAppTest {
     @Test
     public void shouldShowBookListForSelectionOne(){
         //mock scanner for input here
+        when(mockScannerWrapper.nextLine()).thenReturn("1");
         int select = 1;
-        testBib.makeSelection(select);
+        testBib.makeSelection();
 
         assertThat(outputStream.toString(), is("Crazy,Kevin,1010\nBible,Jesus,-1\nMoment of Lift,Melinda Gates,2018\n"));
     }
@@ -129,7 +130,7 @@ public class BibliotecaAppTest {
     public void shouldShowErrorForInvalidSelection(){
         //mock scanner for input here
         int select = 3;
-        testBib.makeSelection(select);
+        testBib.makeSelection();
 
         assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
     }
@@ -142,6 +143,7 @@ public class BibliotecaAppTest {
         assertThat(bk.getCheckedOut(), is(true));
     }
 
+    //TODO Fails because notification introduced in next test...
     @Test
     public void shouldRemoveBookFromBookList(){
         Book bk = bookList.get(0);
@@ -160,8 +162,6 @@ public class BibliotecaAppTest {
             }
         }
         testBib.printBookList();
-
-        //TODO Fails because notification introduced in next test...
         assertThat(outputStream.toString(), is(expected.toString()));
     }
 
@@ -177,6 +177,9 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is("You successfully checked out book: " + bookIndex + '\n'));
     }
 
+    //check in book (by title?)
 
+    //notify if successfully book is returned
 
+    //notify if book is not successfully returned
 }

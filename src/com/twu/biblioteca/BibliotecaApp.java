@@ -11,9 +11,7 @@ public class BibliotecaApp {
         BA.displayMenu();
 
         // Ask user to select a menu option
-        int menuSelection = BA.acceptOptionInput();
-        // Show appropriate information for selection
-        BA.makeSelection(menuSelection);
+        BA.acceptOptionInput();
 
         // Ask user to select a book index
         //int bookSelection = BA.selectBook();
