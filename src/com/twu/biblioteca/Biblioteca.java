@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.sun.deploy.security.SelectableSecurityManager;
+
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -31,11 +33,15 @@ public class Biblioteca {
     //book titles, authors, years
     public void printBookList(){
         for(Book bk : bookList){
-            String title = bk.getTitle();
-            String author = bk.getAuthor();
-            String year = Integer.toString(bk.getYear());
+            if (!bk.checkedOut) {
+                //print index in list
+                //int index = bookList.indexOf(bk);
+                String title = bk.getTitle();
+                String author = bk.getAuthor();
+                String year = Integer.toString(bk.getYear());
 
-            printStream.println(title + ',' + author + ',' + year);
+                printStream.println(title + ',' + author + ',' + year);
+            }
         }
     }
 
@@ -64,15 +70,41 @@ public class Biblioteca {
          switch (selection){
              case 1:
                  printBookList();
+                 selectBook();
                  break;
 
              case 2:
                  printStream.println("Thanks, come again!" );
                  System.exit(0);
+                 break;
 
              default:
                  printStream.println("Error: Invalid Selection. Try Again." );
                  break;
          }
+    }
+    public int selectBook(){
+        printStream.println("SELECT A BOOK");
+        Scanner input = new Scanner(System.in);
+        int bookSelection = input.nextInt();
+        return bookSelection;
+    }
+
+
+    public void checkOut(int bookIndex){
+        // Fetch selected book
+        Book book = bookList.get(bookIndex);
+
+        // Check if book is checked out
+        if (book.checkedOut)
+            // if so, return error message
+            printStream.println("Book is already checked out. Please choose from list above");
+
+        else {
+            // mark book as checkedOut
+            book.setCheckedOut();
+            // Notify user of successful checkout
+            printStream.println("You successfully checked out book: " + bookIndex);
+        }
     }
 }

@@ -28,11 +28,11 @@ public class BibliotecaAppTest {
         testBib = new Biblioteca(out);
 
         //initialize list of books
-        Book oneBook = new Book("Crazy", "Kevin", 1010);
-        Book twoBook = new Book("Bible", "Jesus", -1);
-        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
+        Book oneBook = new Book("Crazy", "Kevin", 1010, 0);
+        Book twoBook = new Book("Bible", "Jesus", -1, 1);
+        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018, 2);
 
-        bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook));
+        bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
         testBib.setBookList(bookList);
     }
 
@@ -107,11 +107,11 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldShowBookListForSelectionOne(){
-        Book oneBook = new Book("Bible", "Jesus", -1);
-
-        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
-
-        testBib.setBookList(bl);
+//        Book oneBook = new Book("Bible", "Jesus", -1,);
+//
+//        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
+//
+//        testBib.setBookList(bl);
         int select = 1;
         testBib.makeSelection(select);
 
@@ -129,16 +129,41 @@ public class BibliotecaAppTest {
     @Test
     public void shouldCheckOutBook(){
         Book bk = bookList.get(0);
-        bk.checkOut();
+        testBib.checkOut(bk.index);
 
-        testBib.printBookList();
         assertThat(bk.checkedOut, is(true));
 
     }
     @Test
     public void shouldRemoveBookFromBookList(){
-       
+        Book bk = bookList.get(0);
+        testBib.checkOut(bk.index);
+        StringBuffer expected = new StringBuffer();
 
+        // For each book in the list of books, add title, author and year to
+        // expected string except checked out book
+        for (Book book : bookList){
+
+            if (!book.equals(bk)) {
+                String title = book.getTitle();
+                String author = book.getAuthor();
+                String year = Integer.toString(book.getYear());
+                expected.append(title + "," + author + "," + year + '\n');
+            }
+        }
+        testBib.printBookList();
+        assertThat(outputStream.toString(), is(expected.toString()));
     }
 
+    @Test
+    public void shouldNotifyUserIfBookSuccessfullyCheckedOut(){
+        //user makes input selection from the bookList with index
+        int bookIndex = 1;
+
+        //call checkout with index
+        testBib.checkOut(bookIndex);
+
+        //Notify user that book has been checked out
+        assertThat(outputStream.toString(), is("You successfully checked out book: " + bookIndex + '\n'));
+    }
 }

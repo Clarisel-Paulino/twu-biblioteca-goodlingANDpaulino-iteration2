@@ -5,11 +5,13 @@ public class Book {
     private final int year;
     public boolean checkedOut;
     private String title;
+    public int index;
 
-    public Book(final String title, final String author, final int year){
+    public Book(final String title, final String author, final int year, int index){
         this.title = title;
         this.author = author;
         this.year = year;
+        this.index = index;
         this.checkedOut = false;
     }
 
@@ -25,7 +27,8 @@ public class Book {
         return this.author;
     }
 
-    public void checkOut(){
+    public void setCheckedOut() {
         checkedOut = true;
     }
+
 }

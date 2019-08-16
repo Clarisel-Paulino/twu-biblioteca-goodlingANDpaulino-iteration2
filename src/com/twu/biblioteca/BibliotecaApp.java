@@ -9,7 +9,15 @@ public class BibliotecaApp {
         Biblioteca BA = new Biblioteca(new PrintStream(System.out));
         BA.printWelcomeMessage();
         BA.displayMenu();
-        int selection = BA.acceptOptionInput();
-        BA.makeSelection(selection);
+
+        // Ask user to select a menu option
+        int menuSelection = BA.acceptOptionInput();
+        // Show appropriate information for selection
+        BA.makeSelection(menuSelection);
+
+        // Ask user to select a book index
+        //int bookSelection = BA.selectBook();
+        // Checkout selected book
+        //BA.checkOut(bookSelection);
     }
 }
