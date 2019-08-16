@@ -108,21 +108,26 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is("Select an option from the menu below: \n1. See List of Books\n2. Exit Biblioteca\n"));
     }
 
-    //TODO Test raw input function
-    @Test
-    public void shouldStoreUserSelection(){
-        int expected = 1;
-        //when (mockScanner.nextLine()).thenReturn("2"));
-        //verify(mockPrintStream, never()).println(expectedBook.toString())
-
-        //assertThat(testBib.menuSelection, expected);
-    }
-
     @Test
     public void shouldShowBookListForSelectionOne(){
         when(mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.acceptOptionInput();
         verify(mockPrintStream).println(bookList.toString());
+    }
+
+    @Test
+    public void shouldNotShowBookListForSelectionThree(){
+        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        testBib.acceptOptionInput();
+        verify(mockPrintStream, never()).println(bookList.toString());
+    }
+
+    @Test
+    public void shouldNotShowBookListForSelectionTwo(){
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        testBib.acceptOptionInput();
+        //TODO: Test if exited app?
+        //verify(mockPrintStream, never()).println(bookList.toString());
     }
 
     @Test
