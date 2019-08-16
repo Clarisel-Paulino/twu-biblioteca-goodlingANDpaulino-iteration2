@@ -9,7 +9,7 @@ public class Biblioteca {
     private PrintStream printStream;
     private Menu menu;
     private ArrayList<Book> bookList;
-    private int selection;
+    //private int selection;
 
     //constructer
     public Biblioteca(PrintStream printStream){
@@ -28,7 +28,7 @@ public class Biblioteca {
                 "Your librarians Megan and Clarisel at your service.");
     }
 
-    //book titles
+    //book titles, authors, years
     public void printBookList(){
         for(Book bk : bookList){
             String title = bk.getTitle();
@@ -49,10 +49,11 @@ public class Biblioteca {
     }
 
     //select menu option
-    public void acceptOptionInput() {
+    public int acceptOptionInput() {
         printStream.println("PRESS A KEY");
         Scanner input = new Scanner(System.in);
-        selection = input.nextInt();
+        int selection = input.nextInt();
+        return selection;
     }
 
     // Input : user selection
@@ -62,11 +63,16 @@ public class Biblioteca {
 
          switch (selection){
              case 1:
+                 printBookList();
                  break;
+
+             case 2:
+                 printStream.println("Thanks, come again!" );
+                 System.exit(0);
+
              default:
                  printStream.println("Error: Invalid Selection. Try Again." );
                  break;
          }
     }
-
 }

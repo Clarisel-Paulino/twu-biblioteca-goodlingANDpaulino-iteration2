@@ -90,10 +90,25 @@ public class BibliotecaAppTest {
 //    }
 
     @Test
+    public void shouldShowBookListForSelectionOne(){
+        Book oneBook = new Book("Bible", "Jesus", -1);
+
+        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
+
+        testBib.setBookList(bl);
+        int select = 1;
+        testBib.makeSelection(select);
+
+        assertThat(outputStream.toString(), is("Bible,Jesus,-1\n"));
+    }
+
+    @Test
     public void shouldShowErrorForInvalidSelection(){
         int select = 2;
         testBib.makeSelection(select);
 
         assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
     }
+
+
 }
