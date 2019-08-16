@@ -32,4 +32,8 @@ public class Book {
     public boolean getCheckedOut() {
         return checkedOut;
     }
+
+    public String toString(){
+        return title + ',' + author + ',' + year;
+    }
 }

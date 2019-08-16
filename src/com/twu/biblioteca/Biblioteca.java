@@ -10,7 +10,7 @@ public class Biblioteca {
     private PrintStream printStream;
     private Menu menu;
     private ArrayList<Book> bookList;
-    private int menuSelection;
+    private String menuSelection;
     private ScannerWrapper scanner;
 
     //constructer
@@ -33,17 +33,7 @@ public class Biblioteca {
 
     //book titles, authors, years
     public void printBookList(){
-        for(Book bk : bookList){
-            if (!bk.getCheckedOut()) {
-                //print index in list
-                int index = bookList.indexOf(bk);
-                String title = bk.getTitle();
-                String author = bk.getAuthor();
-                String year = Integer.toString(bk.getYear());
-
-                printStream.println(title + ',' + author + ',' + year);
-            }
-        }
+        printStream.println(bookList.toString());
     }
 
     //display menu
@@ -57,33 +47,30 @@ public class Biblioteca {
     //select menu option
     public void acceptOptionInput() {
         printStream.println("PRESS A KEY");
-        menuSelection = scanner.nextInt();
+        menuSelection = scanner.nextLine();
         makeSelection();
     }
 
     // Input : user selection
     // Displays appropriate response
     public void makeSelection(){
-         switch (menuSelection){
-             case 1:
-                 printBookList();
-                 selectBook();
-                 break;
-
-             case 2:
-                 printStream.println("Thanks, come again!" );
-                 System.exit(0);
-                 break;
-
-             default:
-                 printStream.println("Error: Invalid Selection. Try Again." );
-                 break;
-         }
+        //TODO: CASE / SWITCH
+        if (menuSelection == "1"){
+            printBookList();
+            selectBook();
+        }
+        else if(menuSelection == "2"){
+            printStream.println("Thanks, come again!" );
+            System.exit(0);
+        }
+        else{
+            printStream.println("Error: Invalid Selection. Try Again." );
+        }
     }
 
-    public int selectBook(){
+    public String selectBook(){
         printStream.println("SELECT A BOOK");
-        int bookSelection = scanner.nextInt();
+        String bookSelection = scanner.nextLine();
         return bookSelection;
     }
 

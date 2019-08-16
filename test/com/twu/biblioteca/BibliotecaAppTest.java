@@ -23,18 +23,20 @@ public class BibliotecaAppTest {
     private Biblioteca testBib;
     private ArrayList<Book> bookList;
     private ScannerWrapper mockScannerWrapper;
+    private PrintStream mockPrintStream;
 
     @Before
     public void setUp() throws Exception {
         //initialize print stream
         outputStream = new ByteArrayOutputStream();
         out = new PrintStream(outputStream);
+        mockPrintStream = mock(PrintStream.class);
 
         //initialize scanner
         mockScannerWrapper = mock(ScannerWrapper.class);
 
         //initialize library instance
-        testBib = new Biblioteca(out, mockScannerWrapper);
+        testBib = new Biblioteca(mockPrintStream, mockScannerWrapper);
 
         //initialize list of books
         Book oneBook = new Book("Crazy", "Kevin", 1010);
@@ -118,12 +120,9 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldShowBookListForSelectionOne(){
-        //mock scanner for input here
-        when(mockScannerWrapper.nextInt()).thenReturn(1);
-        int select = 1;
-        testBib.makeSelection();
-
-        assertThat(outputStream.toString(), is("Crazy,Kevin,1010\nBible,Jesus,-1\nMoment of Lift,Melinda Gates,2018\n"));
+        when(mockScannerWrapper.nextLine()).thenReturn("1");
+        testBib.acceptOptionInput();
+        verify(mockPrintStream).println(bookList.toString());
     }
 
     @Test
