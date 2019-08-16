@@ -64,7 +64,6 @@ public class Biblioteca {
 
     // Input : user selection
     // Displays appropriate response
-
     public void makeSelection(int selection){
 
          switch (selection){
@@ -106,6 +105,5 @@ public class Biblioteca {
             printStream.println("You successfully checked out book: " + bookIndex);
         }
     }
-
 
 }
