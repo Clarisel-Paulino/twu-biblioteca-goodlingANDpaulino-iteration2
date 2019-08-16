@@ -33,9 +33,9 @@ public class Biblioteca {
     //book titles, authors, years
     public void printBookList(){
         for(Book bk : bookList){
-            if (!bk.checkedOut) {
+            if (!bk.getCheckedOut()) {
                 //print index in list
-                //int index = bookList.indexOf(bk);
+                int index = bookList.indexOf(bk);
                 String title = bk.getTitle();
                 String author = bk.getAuthor();
                 String year = Integer.toString(bk.getYear());
@@ -70,7 +70,7 @@ public class Biblioteca {
          switch (selection){
              case 1:
                  printBookList();
-                 selectBook();
+                 //selectBook();
                  break;
 
              case 2:
@@ -90,13 +90,12 @@ public class Biblioteca {
         return bookSelection;
     }
 
-
     public void checkOut(int bookIndex){
         // Fetch selected book
         Book book = bookList.get(bookIndex);
 
         // Check if book is checked out
-        if (book.checkedOut)
+        if (book.getCheckedOut())
             // if so, return error message
             printStream.println("Book is already checked out. Please choose from list above");
 
@@ -107,4 +106,6 @@ public class Biblioteca {
             printStream.println("You successfully checked out book: " + bookIndex);
         }
     }
+
+
 }

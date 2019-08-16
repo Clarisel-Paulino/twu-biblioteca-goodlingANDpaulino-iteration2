@@ -3,15 +3,13 @@ package com.twu.biblioteca;
 public class Book {
     private final String author;
     private final int year;
-    public boolean checkedOut;
+    private boolean checkedOut;
     private String title;
-    public int index;
 
-    public Book(final String title, final String author, final int year, int index){
+    public Book(final String title, final String author, final int year){
         this.title = title;
         this.author = author;
         this.year = year;
-        this.index = index;
         this.checkedOut = false;
     }
 
@@ -31,4 +29,7 @@ public class Book {
         checkedOut = true;
     }
 
+    public boolean getCheckedOut() {
+        return checkedOut;
+    }
 }
