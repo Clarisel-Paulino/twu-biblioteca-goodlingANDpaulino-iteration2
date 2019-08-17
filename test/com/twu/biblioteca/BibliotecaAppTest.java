@@ -48,6 +48,7 @@ public class BibliotecaAppTest {
         testBib.addBook(threeBook);
     }
 
+    // STORY 1.1 VIEW WELCOME MESSAGE
     @Test
     public void printWelcomeMessageTest() {
         testBib.printWelcomeMessage();
@@ -82,6 +83,7 @@ public class BibliotecaAppTest {
 //        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
 //    }
 
+    // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
     //TODO: Add mock print stream
     @Test
     public void shouldPrintBooksWithTitleAuthorAndYear(){
@@ -102,6 +104,7 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is(expected.toString()));
     }
 
+    // STORY 1.4 VIEW MAIN MENU OF OPTIONS
     //TODO: FIX ME - 3 lines printed instead of 1
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
@@ -115,6 +118,7 @@ public class BibliotecaAppTest {
         //verify(mockPrintStream).println(expected3);
     }
 
+    // STORY 1.2 VIEW LIST OF ALL BOOKS
     @Test
     public void shouldShowBookListForSelectionOne(){
         when(mockScannerWrapper.nextLine()).thenReturn("1");
@@ -129,6 +133,7 @@ public class BibliotecaAppTest {
         verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
+    // STORY 1.6 QUIT APPLICATION
     //TODO: Test if exited app? Maybe test exit code?
     @Test
     public void shouldNotShowBookListForSelectionTwo(){
@@ -137,6 +142,7 @@ public class BibliotecaAppTest {
         //verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
+    // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
     //TODO change to scanner mock
     @Test
     public void shouldShowErrorForInvalidSelection(){
@@ -147,6 +153,7 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
     }
 
+    // STORY 1.7 CHECKOUT A BOOK
     @Test
     public void shouldCheckOutBook(){
         // Set up mock for When user selects book 2
@@ -183,7 +190,7 @@ public class BibliotecaAppTest {
 //        assertThat(outputStream.toString(), is(expected.toString()));
 //    }
 
-    //check in book (by title?)
+    // STORY 1.8 SUCCESS MESSAGE FOR CHECKED OUT BOOK
     @Test
     public void shouldDisplaySuccessMessageWhenBookCheckedOut(){
         // Set up mock for When user selects book 2
@@ -195,7 +202,10 @@ public class BibliotecaAppTest {
         verify(mockPrintStream).println("You successfully checked out book: 2");
     }
 
-    //check if book removed
+    // STORY 1.9 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
+    // TODO: MAKE THIS TEST
+    
+    // check if book removed
     @Test
     public void shouldRemoveBookFromBookList(){
         when (mockScannerWrapper.nextLine()).thenReturn("1");
