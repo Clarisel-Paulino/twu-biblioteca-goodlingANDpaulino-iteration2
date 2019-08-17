@@ -11,6 +11,7 @@ public class Biblioteca {
     //private Menu menu;
     private String menu;
     private ArrayList<Book> bookList;
+    public ArrayList<Book> availBookList;
     private String menuSelection;
     private String bookSelection;
     private ScannerWrapper scanner;
@@ -51,6 +52,7 @@ public class Biblioteca {
                 availBooks.add(bk);
             }
         }
+        availBookList = availBooks;
         printStream.println(availBooks.toString());
     }
 

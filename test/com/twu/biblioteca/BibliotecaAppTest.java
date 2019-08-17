@@ -1,8 +1,11 @@
 package com.twu.biblioteca;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.Assert;
+//import org.junit.contrib.java.lang.system.Assertion;
+//import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,6 +25,9 @@ public class BibliotecaAppTest {
     private Biblioteca testBib;
     private ScannerWrapper mockScannerWrapper;
     private PrintStream mockPrintStream;
+
+    //@Rule
+    //public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Before
     public void setUp() throws Exception {
@@ -80,6 +86,13 @@ public class BibliotecaAppTest {
 //
 //        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
 //    }
+    // STORY 1.2 VIEW LIST OF ALL BOOKS
+    @Test
+    public void shouldShowBookListForSelectionOne(){
+    when(mockScannerWrapper.nextLine()).thenReturn("1");
+    testBib.acceptOptionInput();
+    verify(mockPrintStream).println(testBib.getBookList().toString());
+}
 
     // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
     @Test
@@ -97,28 +110,11 @@ public class BibliotecaAppTest {
         verify(mockPrintStream).println(expected);
     }
 
-    // STORY 1.2 VIEW LIST OF ALL BOOKS
-    @Test
-    public void shouldShowBookListForSelectionOne(){
-        when(mockScannerWrapper.nextLine()).thenReturn("1");
-        testBib.acceptOptionInput();
-        verify(mockPrintStream).println(testBib.getBookList().toString());
-    }
-
     @Test
     public void shouldNotShowBookListForSelectionThree(){
         when (mockScannerWrapper.nextLine()).thenReturn("3");
         testBib.acceptOptionInput();
         verify(mockPrintStream, never()).println(testBib.getBookList().toString());
-    }
-
-    // STORY 1.6 QUIT APPLICATION
-    //TODO: Test if exited app? Maybe test exit code?
-    @Test
-    public void shouldNotShowBookListForSelectionTwo(){
-        when (mockScannerWrapper.nextLine()).thenReturn("2");
-        testBib.acceptOptionInput();
-        //verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
     // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
@@ -128,6 +124,31 @@ public class BibliotecaAppTest {
         testBib.acceptOptionInput();
         verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
     }
+
+    // STORY 1.6 QUIT APPLICATION
+    //TODO: Test if exited app? Maybe test exit code?
+    @Test
+    public void shouldexitForSelectionTwo() throws Exception{
+
+            when (mockScannerWrapper.nextLine()).thenReturn("2");
+            testBib.acceptOptionInput();
+            assertEquals("Exit status", 0);
+    }
+
+//    @Rule
+//    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+//
+//    @Test
+//    public void exits() {
+//        exit.expectSystemExit();
+//        AppWithExit.doSomethingAndExit(); // acceptoptions()
+//    }
+//
+//    @Test
+//    public void exitsWithStatusCode1() {
+//        exit.expectSystemExitWithStatus(1);
+//        AppWithExit.doSomethingAndExit();
+//    }
 
     // STORY 1.7 CHECKOUT A BOOK
     @Test
@@ -142,6 +163,15 @@ public class BibliotecaAppTest {
         boolean bk2status = bk2.getCheckedOut();
 
         assertThat(bk2status, is(true));
+    }
+
+    // check if book removed
+    @Test
+    public void shouldRemoveBookFromBookList(){
+        when (mockScannerWrapper.nextLine()).thenReturn("1");
+        testBib.selectBook();
+        testBib.printBookList();
+        verify(mockPrintStream).println(testBib.availBookList.toString());
     }
 
 //    //TODO Fails because success notification introduced in next test...
@@ -180,15 +210,6 @@ public class BibliotecaAppTest {
 
     // STORY 1.9 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
     // TODO: MAKE THIS TEST
-
-    // check if book removed
-    @Test
-    public void shouldRemoveBookFromBookList(){
-        when (mockScannerWrapper.nextLine()).thenReturn("1");
-        testBib.selectBook();
-        testBib.printBookList();
-        //verify(mockPrintStream).println(testBib.getBookList().)
-    }
 
     //notify if successfully book is returned
 
