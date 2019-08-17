@@ -13,6 +13,7 @@ public class Biblioteca {
     private String menuSelection;
     private String bookSelection;
     private ScannerWrapper scanner;
+    public int numBooks;
 
     //constructer
     public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
@@ -20,11 +21,19 @@ public class Biblioteca {
         this.menu = new Menu();
         this.scanner = scanner;
         this.bookList = new ArrayList<Book>();
+        this.numBooks = 0;
     }
 
     //set book list
     public void setBookList(ArrayList<Book> books){
         this.bookList = books;
+    }
+
+    // adds book to the bookList and sets book id
+    public void addBook(Book book){
+        numBooks++;
+        book.setId(numBooks);
+        this.bookList.add(book);
     }
 
     //welcome message
@@ -63,11 +72,11 @@ public class Biblioteca {
     // Displays appropriate response
     public void makeSelection(){
         //TODO: CASE / SWITCH
-        if (menuSelection == "1"){
+        if (menuSelection.equals("1")){
             printBookList();
             selectBook();
         }
-        else if(menuSelection == "2"){
+        else if(menuSelection.equals("2")){
             printStream.println("Thanks, come again!" );
             System.exit(0);
         }
@@ -77,13 +86,14 @@ public class Biblioteca {
     }
 
     public void selectBook(){
-        printStream.println("SELECT A BOOK");
+        printStream.println("SELECT A BOOK BY ID");
         //TODO: display books by ID
 
         //save as book selection
         bookSelection = scanner.nextLine();
         checkOut();
     }
+
 
     public void checkOut(){
         // Fetch selected book from bookList

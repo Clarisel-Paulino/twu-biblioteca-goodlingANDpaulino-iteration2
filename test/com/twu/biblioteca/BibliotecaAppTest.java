@@ -39,10 +39,14 @@ public class BibliotecaAppTest {
         testBib = new Biblioteca(mockPrintStream, mockScannerWrapper);
 
         //initialize list of books
-        Book oneBook = new Book("Crazy", "Kevin", 1010);
-        Book twoBook = new Book("Bible", "Jesus", -1);
-        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
+        int counter = 0;
+        Book oneBook = new Book("Crazy", "Kevin", 1010, 0);
+        Book twoBook = new Book("Bible", "Jesus", -1, 2);
+        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018, 3);
+
+
         bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
+
         testBib.setBookList(bookList);
 
 

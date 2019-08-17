@@ -5,6 +5,7 @@ public class Book {
     private final int year;
     private boolean checkedOut;
     private String title;
+    private int id;
 
     //TODO add index var
 
@@ -31,11 +32,17 @@ public class Book {
         checkedOut = true;
     }
 
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean getCheckedOut() {
         return checkedOut;
     }
 
+    //TODO also print by ID
     public String toString(){
-        return title + ',' + author + ',' + year;
+        return id + ": " + title + " by " + author + ", " + year + '\n';
     }
 }
