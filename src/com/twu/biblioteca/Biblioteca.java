@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class Biblioteca {
 
     private PrintStream printStream;
-    private Menu menu;
+    //private Menu menu;
+    private String menu;
     private ArrayList<Book> bookList;
     private String menuSelection;
     private String bookSelection;
@@ -18,7 +19,7 @@ public class Biblioteca {
     //constructer
     public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
         this.printStream = printStream;
-        this.menu = new Menu();
+        this.menu = "1. See List of Books\n2. Exit Biblioteca\n";
         this.scanner = scanner;
         this.bookList = new ArrayList<Book>();
         this.numBooks = 0;
@@ -55,15 +56,14 @@ public class Biblioteca {
 
     //display menu
     public void displayMenu(){
-        printStream.println("Select an option from the menu below: ");
-        for(String option : menu.getMenuOptions()){
-            printStream.println(option);
-        }
+        printStream.println("Select an option from the menu below:\n" + menu);
+//        for(String option : menu.getMenuOptions()){
+//            printStream.println(option);
+//        }
     }
 
     //select menu option
     public void acceptOptionInput() {
-        printStream.println("PRESS A KEY");
         menuSelection = scanner.nextLine();
         makeSelection();
     }
@@ -81,7 +81,7 @@ public class Biblioteca {
             System.exit(0);
         }
         else{
-            printStream.println("Error: Invalid Selection. Try Again." );
+            printStream.println("Error: Invalid Selection. Try Again.\n");
         }
     }
 

@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 public class BibliotecaAppTest {
 
     private ByteArrayOutputStream outputStream;
-    private PrintStream out;
     private Biblioteca testBib;
     private ScannerWrapper mockScannerWrapper;
     private PrintStream mockPrintStream;
@@ -28,7 +27,6 @@ public class BibliotecaAppTest {
     public void setUp() throws Exception {
         //initialize print stream
         outputStream = new ByteArrayOutputStream();
-        out = new PrintStream(outputStream);
         mockPrintStream = mock(PrintStream.class);
 
         //initialize scanner
@@ -84,38 +82,19 @@ public class BibliotecaAppTest {
 //    }
 
     // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
-    //TODO: Add mock print stream
     @Test
     public void shouldPrintBooksWithTitleAuthorAndYear(){
         testBib.printBookList();
 
-        StringBuffer expected = new StringBuffer();
-
-        // For each book in the list of books, add title, author and year to
-        // expected string
-        for (Book book : testBib.getBookList()){
-            String title = book.getTitle();
-            String author = book.getAuthor();
-            String year = Integer.toString(book.getYear());
-
-            expected.append(title + "," + author + "," + year + '\n');
-        }
-
-        assertThat(outputStream.toString(), is(expected.toString()));
+        verify(mockPrintStream).println(testBib.getBookList().toString());
     }
 
     // STORY 1.4 VIEW MAIN MENU OF OPTIONS
-    //TODO: FIX ME - 3 lines printed instead of 1
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
-        String expected1 = "Select an option from the menu below: \n";
-        String expected2 = "1. See List of Books\n";
-        String expected3 = "2. Exit Biblioteca\n";
-
-        //verify(mockPrintStream).println(expected1);
-        verify(mockPrintStream).println(expected1 + expected2 + expected3);
-        //verify(mockPrintStream).println(expected3);
+        String expected = "Select an option from the menu below:\n1. See List of Books\n2. Exit Biblioteca\n";
+        verify(mockPrintStream).println(expected);
     }
 
     // STORY 1.2 VIEW LIST OF ALL BOOKS
@@ -143,14 +122,11 @@ public class BibliotecaAppTest {
     }
 
     // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
-    //TODO change to scanner mock
     @Test
     public void shouldShowErrorForInvalidSelection(){
-        //mock scanner for input here
-        int select = 3;
-        testBib.makeSelection();
-
-        assertThat(outputStream.toString(), is("Error: Invalid Selection. Try Again.\n"));
+        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        testBib.acceptOptionInput();
+        verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
     }
 
     // STORY 1.7 CHECKOUT A BOOK
@@ -204,7 +180,7 @@ public class BibliotecaAppTest {
 
     // STORY 1.9 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
     // TODO: MAKE THIS TEST
-    
+
     // check if book removed
     @Test
     public void shouldRemoveBookFromBookList(){
