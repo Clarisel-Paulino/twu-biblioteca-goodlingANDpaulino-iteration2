@@ -6,16 +6,13 @@ public class Book {
     private boolean checkedOut;
     private String title;
 
-    //TODO add index
+    //TODO add index var
 
     public Book(final String title, final String author, final int year){
         this.title = title;
         this.author = author;
         this.year = year;
         this.checkedOut = false;
-
-
-
     }
 
     public String getTitle(){
@@ -39,7 +36,6 @@ public class Book {
     }
 
     public String toString(){
-
         return title + ',' + author + ',' + year;
     }
 }

@@ -132,7 +132,7 @@ public class BibliotecaAppTest {
     public void shouldNotShowBookListForSelectionTwo(){
         when (mockScannerWrapper.nextLine()).thenReturn("2");
         testBib.acceptOptionInput();
-        //TODO: Test if exited app?
+        //TODO: Test if exited app? Maybe test exit code?
         //verify(mockPrintStream, never()).println(bookList.toString());
     }
 
@@ -155,7 +155,7 @@ public class BibliotecaAppTest {
         assertThat(bk.getCheckedOut(), is(true));
     }
 
-//    //TODO Fails because notification introduced in next test...
+//    //TODO Fails because success notification introduced in next test...
 //    @Test
 //    public void shouldRemoveBookFromBookList(){
 //        Book bk = bookList.get(0);
