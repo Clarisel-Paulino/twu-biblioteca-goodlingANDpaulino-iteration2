@@ -41,15 +41,15 @@ public class BibliotecaAppTest {
         //initialize library instance
         testBib = new Biblioteca(mockPrintStream, mockScannerWrapper);
 
-        //initialize list of books
-        Book oneBook = new Book("Crazy", "Kevin", 1010);
-        Book twoBook = new Book("Bible", "Jesus", -1);
-        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
-
-        //add books to library
-        testBib.addBook(oneBook);
-        testBib.addBook(twoBook);
-        testBib.addBook(threeBook);
+//        //initialize list of books
+//        Book oneBook = new Book("Crazy", "Kevin", 1010);
+//        Book twoBook = new Book("Bible", "Jesus", -1);
+//        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
+//
+//        //add books to library
+//        testBib.addBook(oneBook);
+//        testBib.addBook(twoBook);
+//        testBib.addBook(threeBook);
     }
 
     // STORY 1.1 VIEW WELCOME MESSAGE
@@ -91,7 +91,7 @@ public class BibliotecaAppTest {
     public void shouldShowBookListForSelectionOne(){
     when(mockScannerWrapper.nextLine()).thenReturn("1");
     testBib.acceptOptionInput();
-    verify(mockPrintStream).println(testBib.getBookList().toString());
+    verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
 }
 
     // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
@@ -99,7 +99,7 @@ public class BibliotecaAppTest {
     public void shouldPrintBooksWithTitleAuthorAndYear(){
         testBib.printBookList();
 
-        verify(mockPrintStream).println(testBib.getBookList().toString());
+        verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
     }
 
     // STORY 1.4 VIEW MAIN MENU OF OPTIONS
@@ -114,7 +114,7 @@ public class BibliotecaAppTest {
     public void shouldNotShowBookListForSelectionThree(){
         when (mockScannerWrapper.nextLine()).thenReturn("3");
         testBib.acceptOptionInput();
-        verify(mockPrintStream, never()).println(testBib.getBookList().toString());
+        verify(mockPrintStream, never()).println(testBib.bookList.availBookList.toString());
     }
 
     // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
@@ -159,8 +159,8 @@ public class BibliotecaAppTest {
         // accept user input to check out book
         testBib.selectBook();
 
-        Book bk2 = testBib.getBookByID("2");
-        boolean bk2status = bk2.getCheckedOut();
+        Book bk2 = testBib.bookList.getBookByID("2");
+        boolean bk2status = bk2.isCheckedOut();
 
         assertThat(bk2status, is(true));
     }
@@ -171,7 +171,7 @@ public class BibliotecaAppTest {
         when (mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.selectBook();
         testBib.printBookList();
-        verify(mockPrintStream).println(testBib.availBookList.toString());
+        verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
     }
 
 //    //TODO Fails because success notification introduced in next test...

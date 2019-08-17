@@ -8,70 +8,59 @@ import java.util.ArrayList;
 public class Biblioteca {
 
     private PrintStream printStream;
-    //private Menu menu;
-    private String menu;
-    private ArrayList<Book> bookList;
-    public ArrayList<Book> availBookList;
+    private ScannerWrapper scanner;
+
+    private Menu menu;
+    public BookList bookList;
+
+    // User input for menu option and book selection
     private String menuSelection;
     private String bookSelection;
-    private ScannerWrapper scanner;
-    public int numBooks;
 
-    //constructer
+    /**
+     * Biblioteca Constructor
+     * @param printStream - instance of printStream
+     * @param scanner - scanner for user input
+     * initializes scanner, printStream, the book lists, and numBooks
+     */
     public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
         this.printStream = printStream;
-        this.menu = "1. See List of Books\n2. Exit Biblioteca\n";
         this.scanner = scanner;
-        this.bookList = new ArrayList<Book>();
-        this.numBooks = 0;
+        this.menu = new Menu(printStream, scanner);
+        this.bookList = new BookList();
     }
 
-    //get book list
-    public ArrayList<Book> getBookList(){
-        return this.bookList;
-    }
-
-    // adds book to the bookList and sets book id
-    public void addBook(Book book){
-        numBooks++;
-        book.setId(numBooks);
-        this.bookList.add(book);
-    }
-
-    //welcome message
+    /**
+     * prints initial Welcome Message
+     */
     public void printWelcomeMessage(){
         printStream.println("Welcome to Biblioteca!!! " +
                 "Your librarians Megan and Clarisel at your service.");
     }
 
-    //book titles, authors, years
+    /**
+     * Prints list of available books displaying the title, author, year and book id
+     */
     public void printBookList(){
-        ArrayList<Book> availBooks = new ArrayList<Book>();
-        for (Book bk : bookList){
-            if (!bk.getCheckedOut()){
-                availBooks.add(bk);
-            }
-        }
-        availBookList = availBooks;
-        printStream.println(availBooks.toString());
+        printStream.println(bookList.printBookList());
     }
 
-    //display menu
+    /**
+     * displays the menu of options
+     */
     public void displayMenu(){
-        printStream.println("Select an option from the menu below:\n" + menu);
-//        for(String option : menu.getMenuOptions()){
-//            printStream.println(option);
-//        }
+        printStream.println(menu.printMenuOptions());
     }
 
-    //select menu option
+    /**
+     * Accepts user input and stores it as the menu option selection
+     * and calls makeSelection()
+     */
     public void acceptOptionInput() {
         menuSelection = scanner.nextLine();
         makeSelection();
     }
 
-    // Input : user selection
-    // Displays appropriate response
     public void makeSelection(){
         //TODO: CASE / SWITCH
         if (menuSelection.equals("1")){
@@ -94,17 +83,12 @@ public class Biblioteca {
         checkOut();
     }
 
-    public Book getBookByID(String idString){
-        int id = Integer.parseInt(idString);
-        return bookList.get(id - 1);
-    }
-
     public void checkOut(){
         // Fetch selected book from bookList
-        Book book = getBookByID(bookSelection);
+        Book book = bookList.getBookByID(bookSelection);
 
         // Check if book is checked out
-        if (book.getCheckedOut())
+        if (book.isCheckedOut())
             // if so, return error message
             printStream.println("Book is already checked out. Please choose from list above");
         else {

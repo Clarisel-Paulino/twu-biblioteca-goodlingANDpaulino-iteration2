@@ -37,7 +37,7 @@ public class Book {
         this.id = id;
     }
 
-    public boolean getCheckedOut() {
+    public boolean isCheckedOut() {
         return checkedOut;
     }
 
