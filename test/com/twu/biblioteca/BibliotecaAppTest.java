@@ -21,7 +21,7 @@ public class BibliotecaAppTest {
     private ByteArrayOutputStream outputStream;
     private PrintStream out;
     private Biblioteca testBib;
-    private ArrayList<Book> bookList;
+    //private ArrayList<Book> bookList;
     private ScannerWrapper mockScannerWrapper;
     private PrintStream mockPrintStream;
 
@@ -39,17 +39,13 @@ public class BibliotecaAppTest {
         testBib = new Biblioteca(mockPrintStream, mockScannerWrapper);
 
         //initialize list of books
-        int counter = 0;
-        Book oneBook = new Book("Crazy", "Kevin", 1010, 0);
-        Book twoBook = new Book("Bible", "Jesus", -1, 2);
-        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018, 3);
+        Book oneBook = new Book("Crazy", "Kevin", 1010);
+        Book twoBook = new Book("Bible", "Jesus", -1);
+        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
 
-
-        bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
-
-        testBib.setBookList(bookList);
-
-
+        testBib.addBook(oneBook);
+        testBib.addBook(twoBook);
+        testBib.addBook(threeBook);
     }
 
     @Test
@@ -94,7 +90,7 @@ public class BibliotecaAppTest {
 
         // For each book in the list of books, add title, author and year to
         // expected string
-        for (Book book : bookList){
+        for (Book book : testBib.getBookList()){
             String title = book.getTitle();
             String author = book.getAuthor();
             String year = Integer.toString(book.getYear());
@@ -122,14 +118,14 @@ public class BibliotecaAppTest {
     public void shouldShowBookListForSelectionOne(){
         when(mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.acceptOptionInput();
-        verify(mockPrintStream).println(bookList.toString());
+        verify(mockPrintStream).println(testBib.getBookList().toString());
     }
 
     @Test
     public void shouldNotShowBookListForSelectionThree(){
         when (mockScannerWrapper.nextLine()).thenReturn("3");
         testBib.acceptOptionInput();
-        verify(mockPrintStream, never()).println(bookList.toString());
+        verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
     @Test
@@ -137,7 +133,7 @@ public class BibliotecaAppTest {
         when (mockScannerWrapper.nextLine()).thenReturn("2");
         testBib.acceptOptionInput();
         //TODO: Test if exited app? Maybe test exit code?
-        //verify(mockPrintStream, never()).println(bookList.toString());
+        //verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
     //TODO change to scanner mock
@@ -152,23 +148,28 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldCheckOutBook(){
-       Book bk = bookList.get(0);
-       //testBib.book
-       testBib.checkOut();
+        // Set up mock for When user selects book 2
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
 
-        assertThat(bk.getCheckedOut(), is(true));
+        // accept user input to check out book
+        testBib.selectBook();
+
+        Book bk2 = testBib.getBookByID("2");
+        boolean bk2status = bk2.getCheckedOut();
+
+        assertThat(bk2status, is(true));
     }
 
 //    //TODO Fails because success notification introduced in next test...
 //    @Test
 //    public void shouldRemoveBookFromBookList(){
-//        Book bk = bookList.get(0);
+//        Book bk = testBib.getBookList().get(0);
 //        testBib.checkOut(0);
 //        StringBuffer expected = new StringBuffer();
 //
 //        // For each book in the list of books, add title, author and year to
 //        // expected string except checked out book
-//        for (Book book : bookList){
+//        for (Book book : testBib.getBookList()){
 //
 //            if (!book.equals(bk)) {
 //                String title = book.getTitle();
@@ -188,15 +189,16 @@ public class BibliotecaAppTest {
         when (mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.selectBook();
         verify(mockPrintStream).println("You successfully checked out book: 1");
-        assertThat(bookList.get(1).getCheckedOut(), is(true));
+        assertThat(testBib.getBookList().get(1).getCheckedOut(), is(true));
     }
 
     //check if book removed
+    @Test
     public void shouldRemoveBookFromBookList(){
         when (mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.selectBook();
         testBib.printBookList();
-        //verify(mockPrintStream).println(bookList.)
+        //verify(mockPrintStream).println(testBib.getBookList().)
     }
 
     //notify if successfully book is returned

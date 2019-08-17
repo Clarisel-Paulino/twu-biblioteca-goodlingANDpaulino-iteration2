@@ -25,8 +25,13 @@ public class Biblioteca {
     }
 
     //set book list
-    public void setBookList(ArrayList<Book> books){
-        this.bookList = books;
+//    public void setBookList(ArrayList<Book> books){
+//        this.bookList = books;
+//    }
+
+    //get book list
+    public ArrayList<Book> getBookList(){
+        return this.bookList;
     }
 
     // adds book to the bookList and sets book id
@@ -94,11 +99,14 @@ public class Biblioteca {
         checkOut();
     }
 
+    public Book getBookByID(String idString){
+        int id = Integer.parseInt(idString);
+        return bookList.get(id - 1);
+    }
 
     public void checkOut(){
         // Fetch selected book from bookList
-        int bookIndex = Integer.parseInt(bookSelection);
-        Book book = bookList.get(bookIndex);
+        Book book = getBookByID(bookSelection);
 
         // Check if book is checked out
         if (book.getCheckedOut())
@@ -108,7 +116,7 @@ public class Biblioteca {
             // mark book as checkedOut
             book.setCheckedOut();
             // Notify user of successful checkout
-            printStream.println("You successfully checked out book: " + bookIndex);
+            printStream.println("You successfully checked out book: " + bookSelection);
         }
     }
 }
