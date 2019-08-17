@@ -16,7 +16,6 @@ public class BibliotecaApp {
         Book twoBook = new Book("Bible", "Jesus", -1);
         Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
         ArrayList<Book> bookList = new ArrayList<Book>(Arrays.asList(oneBook, twoBook, threeBook));
-        //BA.setBookList(bookList);
 
         BA.printWelcomeMessage();
         BA.displayMenu();

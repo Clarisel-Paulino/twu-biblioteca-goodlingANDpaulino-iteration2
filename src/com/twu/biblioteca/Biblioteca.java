@@ -24,11 +24,6 @@ public class Biblioteca {
         this.numBooks = 0;
     }
 
-    //set book list
-//    public void setBookList(ArrayList<Book> books){
-//        this.bookList = books;
-//    }
-
     //get book list
     public ArrayList<Book> getBookList(){
         return this.bookList;
@@ -92,8 +87,6 @@ public class Biblioteca {
 
     public void selectBook(){
         printStream.println("SELECT A BOOK BY ID");
-        //TODO: display books by ID
-
         //save as book selection
         bookSelection = scanner.nextLine();
         checkOut();

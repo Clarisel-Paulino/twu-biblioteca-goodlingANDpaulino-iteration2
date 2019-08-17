@@ -21,7 +21,6 @@ public class BibliotecaAppTest {
     private ByteArrayOutputStream outputStream;
     private PrintStream out;
     private Biblioteca testBib;
-    //private ArrayList<Book> bookList;
     private ScannerWrapper mockScannerWrapper;
     private PrintStream mockPrintStream;
 
@@ -43,6 +42,7 @@ public class BibliotecaAppTest {
         Book twoBook = new Book("Bible", "Jesus", -1);
         Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
 
+        //add books to library
         testBib.addBook(oneBook);
         testBib.addBook(twoBook);
         testBib.addBook(threeBook);
@@ -82,6 +82,7 @@ public class BibliotecaAppTest {
 //        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
 //    }
 
+    //TODO: Add mock print stream
     @Test
     public void shouldPrintBooksWithTitleAuthorAndYear(){
         testBib.printBookList();
@@ -101,7 +102,7 @@ public class BibliotecaAppTest {
         assertThat(outputStream.toString(), is(expected.toString()));
     }
 
-    //TODO FIX ME
+    //TODO: FIX ME - 3 lines printed instead of 1
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
@@ -128,11 +129,11 @@ public class BibliotecaAppTest {
         verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
+    //TODO: Test if exited app? Maybe test exit code?
     @Test
     public void shouldNotShowBookListForSelectionTwo(){
         when (mockScannerWrapper.nextLine()).thenReturn("2");
         testBib.acceptOptionInput();
-        //TODO: Test if exited app? Maybe test exit code?
         //verify(mockPrintStream, never()).println(testBib.getBookList().toString());
     }
 
@@ -184,12 +185,14 @@ public class BibliotecaAppTest {
 
     //check in book (by title?)
     @Test
-    public void shouldAcceptBookChoiceAndCheckBookOut(){
-        //select book with ID 1 to check out
-        when (mockScannerWrapper.nextLine()).thenReturn("1");
+    public void shouldDisplaySuccessMessageWhenBookCheckedOut(){
+        // Set up mock for When user selects book 2
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
+
+        // accept user input to check out book
         testBib.selectBook();
-        verify(mockPrintStream).println("You successfully checked out book: 1");
-        assertThat(testBib.getBookList().get(1).getCheckedOut(), is(true));
+
+        verify(mockPrintStream).println("You successfully checked out book: 2");
     }
 
     //check if book removed
