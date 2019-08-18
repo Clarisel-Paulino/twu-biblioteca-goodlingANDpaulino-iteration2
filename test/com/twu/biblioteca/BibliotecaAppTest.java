@@ -89,17 +89,16 @@ public class BibliotecaAppTest {
     // STORY 1.2 VIEW LIST OF ALL BOOKS
     @Test
     public void shouldShowBookListForSelectionOne(){
-    when(mockScannerWrapper.nextLine()).thenReturn("1");
-    testBib.acceptOptionInput();
-    verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
+        when(mockScannerWrapper.nextLine()).thenReturn("1");
+        testBib.acceptOptionInput();
+        verify(mockPrintStream).println(testBib.bookList.toString());
 }
 
     // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
     @Test
     public void shouldPrintBooksWithTitleAuthorAndYear(){
         testBib.printBookList();
-
-        verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
+        verify(mockPrintStream).println(testBib.bookList.toString());
     }
 
     // STORY 1.4 VIEW MAIN MENU OF OPTIONS
@@ -111,10 +110,10 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldNotShowBookListForSelectionThree(){
+    public void shouldNotShowBookListForSelectionThatIsNot1(){
         when (mockScannerWrapper.nextLine()).thenReturn("3");
         testBib.acceptOptionInput();
-        verify(mockPrintStream, never()).println(testBib.bookList.availBookList.toString());
+        verify(mockPrintStream, never()).println(testBib.bookList.toString());
     }
 
     // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
@@ -165,36 +164,14 @@ public class BibliotecaAppTest {
         assertThat(bk2status, is(true));
     }
 
-    // check if book removed
+    // Checks if book is removed from list when checked out
     @Test
-    public void shouldRemoveBookFromBookList(){
+    public void shouldRemoveBookFromBookListWhenBookIsSelected(){
         when (mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.selectBook();
         testBib.printBookList();
-        verify(mockPrintStream).println(testBib.bookList.availBookList.toString());
+        verify(mockPrintStream).println(testBib.bookList.toString());
     }
-
-//    //TODO Fails because success notification introduced in next test...
-//    @Test
-//    public void shouldRemoveBookFromBookList(){
-//        Book bk = testBib.getBookList().get(0);
-//        testBib.checkOut(0);
-//        StringBuffer expected = new StringBuffer();
-//
-//        // For each book in the list of books, add title, author and year to
-//        // expected string except checked out book
-//        for (Book book : testBib.getBookList()){
-//
-//            if (!book.equals(bk)) {
-//                String title = book.getTitle();
-//                String author = book.getAuthor();
-//                String year = Integer.toString(book.getYear());
-//                expected.append(title + "," + author + "," + year + '\n');
-//            }
-//        }
-//        testBib.printBookList();
-//        assertThat(outputStream.toString(), is(expected.toString()));
-//    }
 
     // STORY 1.8 SUCCESS MESSAGE FOR CHECKED OUT BOOK
     @Test

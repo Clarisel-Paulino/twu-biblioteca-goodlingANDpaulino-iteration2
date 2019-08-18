@@ -42,7 +42,7 @@ public class Biblioteca {
      * Prints list of available books displaying the title, author, year and book id
      */
     public void printBookList(){
-        printStream.println(bookList.printBookList());
+        printStream.println(bookList.toString());
     }
 
     /**
@@ -65,6 +65,7 @@ public class Biblioteca {
         //TODO: CASE / SWITCH
         if (menuSelection.equals("1")){
             printBookList();
+            printStream.println("SELECT A BOOK BY ID");
             selectBook();
         }
         else if(menuSelection.equals("2")){
@@ -76,13 +77,21 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * selectBook saves user input as the desired book selection(by ID)
+     * and calls checkOut()
+     */
     public void selectBook(){
-        printStream.println("SELECT A BOOK BY ID");
-        //save as book selection
+        //save user input as book selection
         bookSelection = scanner.nextLine();
         checkOut();
+
     }
 
+    /**
+     * checkOut checks out an available book or throws error message for attempt
+     * to check out unavailable book
+     */
     public void checkOut(){
         // Fetch selected book from bookList
         Book book = bookList.getBookByID(bookSelection);
@@ -94,8 +103,20 @@ public class Biblioteca {
         else {
             // mark book as checkedOut
             book.setCheckedOut();
+            bookList.updateAvailBooks(book);
+
             // Notify user of successful checkout
             printStream.println("You successfully checked out book: " + bookSelection);
+        }
+    }
+
+    public void start(){
+        printWelcomeMessage();
+
+        while(true) {
+            displayMenu();
+            // Ask user to select a menu option
+            acceptOptionInput();
         }
     }
 }

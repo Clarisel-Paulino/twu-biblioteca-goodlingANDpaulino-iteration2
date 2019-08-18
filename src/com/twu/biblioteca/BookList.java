@@ -63,27 +63,31 @@ public class BookList {
      * printBookList
      * @return list of available books as a String
      */
-    public String printBookList(){
-        return availBookList.toString();
+    public String toString(){
+        String i = String.format("%-10s", "BOOK ID");
+        String t = String.format("%-20s", "TITLE");
+        String a = String.format("%-20s", "AUTHOR");
+        String y = String.format("%-20s", "YEAR");
+        String line = "\n================================================================\n";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(i+ t + a + y + line);
+        sb.append(availBookList.toString());
+
+        return sb.toString();
     }
 
     public ArrayList<Book> getBookList(){
         return availBookList;
     }
 
-    public String checkOut(String bookSelection){
-        // Fetch selected book from bookList
-        Book book = getBookByID(bookSelection);
-
-        // Check if book is checked out
-        if (book.isCheckedOut())
-            // if so, return error message
-            return "Book is already checked out. Please choose from list above";
-        else {
-            // mark book as checkedOut
-            book.setCheckedOut();
-            // Notify user of successful checkout
-            return "You successfully checked out book: " + bookSelection;
-        }
+    /**
+     * updateAvailBooks
+     * @param book -- Book object to be removed
+     *  Removes book from the list of available books
+     */
+    public void updateAvailBooks(Book book){
+        availBookList.remove(book);
     }
+
 }

@@ -43,6 +43,14 @@ public class Book {
 
     //TODO also print by ID
     public String toString(){
-        return id + ": " + title + " by " + author + ", " + year + '\n';
+        String i = String.format("%-10s", id);
+        String t = String.format("%-20s", title);
+        String a = String.format("%-20s", author);
+        String y = String.format("%-20s", year);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(i + t + a + y + "\n");
+
+        return sb.toString();
     }
 }
