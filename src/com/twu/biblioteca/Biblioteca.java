@@ -187,8 +187,11 @@ public class Biblioteca {
                     printStream.println(itemType + " is already checked out. Please choose from list above");
                 else {
                     // mark item as checkedOut
-                    rentalItem.setCheckedOut();
+                    rentalItem.setCheckedOut(currentUser);
                     rentalList.updateAvailList(rentalItem);
+
+                    // Keep track of which user checked out the book
+                    rentalList.addCheckedOutItem(currentUser, rentalItem);
 
                     // Notify user of successful checkout
                     printStream.println("You successfully checked out " + itemType + " [" + itemSelection + "] " +  rentalItem.getTitle());
@@ -249,6 +252,9 @@ public class Biblioteca {
                     // mark item as returned
                     rentalItem.setReturned();
                     rentalList.updateAvailList(rentalItem);
+
+                    // Keep track of which user checked out the book
+                    rentalList.removeCheckedOutItem(rentalItem);
 
                     // Notify user of successful return
                     printStream.println("You successfully returned " + itemType + " [" + itemSelection + "] " +  rentalItem.getTitle());

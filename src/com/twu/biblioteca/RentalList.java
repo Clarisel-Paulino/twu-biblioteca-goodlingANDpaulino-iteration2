@@ -1,13 +1,17 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RentalList {
-
     // List of all rental items in library
     private ArrayList<RentalItem> rentalList;
+
     // List of all rental items available for checkout
     public ArrayList<RentalItem> availItemList;
+
+    //Hash map that maps item to user who checked it out
+    public HashMap<RentalItem, User> checkedOutList;
 
     // Current number of items, used to give item an ID num
     private int numItems;
@@ -19,8 +23,8 @@ public class RentalList {
     public RentalList(){
         this.availItemList = new ArrayList<RentalItem>();
         this.rentalList = new ArrayList<RentalItem>();
+        this.checkedOutList = new HashMap<RentalItem, User>();
     }
-
 
     /**
      * getByID
@@ -71,4 +75,11 @@ public class RentalList {
         return numItems;
     }
 
+    public void addCheckedOutItem(User user, RentalItem item){
+        checkedOutList.put(item, user);
+    }
+
+    public void removeCheckedOutItem(RentalItem item){
+        checkedOutList.remove(item);
+    }
 }
