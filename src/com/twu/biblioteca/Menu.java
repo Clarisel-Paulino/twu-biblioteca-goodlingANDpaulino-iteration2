@@ -1,38 +1,45 @@
 package com.twu.biblioteca;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-
 public class Menu {
 
-    private ArrayList<String> menuOptions;
+    private String menuOptions;
     private ScannerWrapper scanner;
-    private PrintStream printStream;
 
-    // User input for menu option and book selection
-    private String menuSelection;
-    private String bookSelection;
+    // User input for menu option
+    private int menuSelection;
 
-    public Menu(PrintStream printStream , ScannerWrapper scanner) {
-        this.menuOptions = new ArrayList<String>();
+    public Menu(ScannerWrapper scanner) {
+        this.menuOptions = "Select an option from the menu below:\n 1. See List of Books\n" +
+                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
         this.scanner = scanner;
-        this.printStream = printStream;
-        menuOptions.add("1. See List of Books");
-        menuOptions.add("2. Exit Biblioteca");
     }
 
-    public ArrayList<String> getMenuOptions() {
+    public String getMenuOptions() {
         return menuOptions;
     }
 
-    public String printMenuOptions(){
-        StringBuilder options = new StringBuilder();
-        options.append("Select an option from the menu below:\n");
+    /**
+     * Parses user input and stores valid input as the menu option selection
+     */
+    public void parseOptionInput() {
+        String select = scanner.nextLine();
 
-        for(String option : menuOptions){
-            options.append(option + '\n');
+        //check if menuSelection is an int
+        try {
+            // sets menuSelection as valid int
+            menuSelection = Integer.parseInt(select);
         }
-        return options.toString();
+
+        // CASE: user input was not an integer
+        catch (NumberFormatException e){
+            // Sets menu selection as -1
+            menuSelection = -1;
+        }
     }
+
+    public int getMenuSelection(){
+        return menuSelection;
+    }
+
 }
 

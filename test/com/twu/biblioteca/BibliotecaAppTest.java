@@ -91,7 +91,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldShowBookListForSelectionOne(){
         when(mockScannerWrapper.nextLine()).thenReturn("1");
-        testBib.acceptOptionInput();
+        testBib.makeSelection();
         verify(mockPrintStream).println(testBib.bookList.toString());
 }
 
@@ -114,7 +114,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldNotShowBookListForSelectionThatIsNot1(){
         when (mockScannerWrapper.nextLine()).thenReturn("3");
-        testBib.acceptOptionInput();
+        testBib.makeSelection();
         verify(mockPrintStream, never()).println(testBib.bookList.toString());
     }
 
@@ -122,14 +122,14 @@ public class BibliotecaAppTest {
     @Test
     public void shouldShowErrorForInvalidSelectionInt(){
         when (mockScannerWrapper.nextLine()).thenReturn("8");
-        testBib.acceptOptionInput();
+        testBib.makeSelection();
         verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
     }
 
     @Test
     public void shouldShowErrorForInvalidSelectionChar(){
         when (mockScannerWrapper.nextLine()).thenReturn("m");
-        testBib.acceptOptionInput();
+        testBib.makeSelection();
         verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
     }
 
@@ -138,7 +138,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldexitForSelection5() throws Exception{
             when (mockScannerWrapper.nextLine()).thenReturn("5");
-            testBib.acceptOptionInput();
+            testBib.makeSelection();
             assertEquals("Exit status", 0);
     }
 
@@ -251,6 +251,8 @@ public class BibliotecaAppTest {
     }
 
     // STORY 1.11 NOTIFIED ON UNSUCCESSFUL RETURN
+
+    // CASE: Book exists but is already checked out
     @Test
     public void shouldDisplayUnsuccessMessageForReturnAvailableBook(){
         // Set up mock for when user returns book 3
@@ -259,6 +261,8 @@ public class BibliotecaAppTest {
 
         verify(mockPrintStream).println("Book is already at the library.");
     }
+
+    // CASE: Book does not exist, out of bounds
     @Test
     public void shouldDisplayUnsuccessMessageForReturnNonExistentBook(){
         // Set up mock for when user returns book 3
@@ -268,6 +272,7 @@ public class BibliotecaAppTest {
         verify(mockPrintStream).println("Book does not exist, try again");
     }
 
+    //CASE: User input was not an integer
     @Test
     public void shouldDisplayUnsuccessMessageForInvalidInput(){
         // Set up mock for when user returns book 3
@@ -276,5 +281,5 @@ public class BibliotecaAppTest {
 
         verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
     }
-    
+
 }

@@ -7,12 +7,11 @@ public class Biblioteca {
 
     private PrintStream printStream;
     private ScannerWrapper scanner;
+    private Menu menu;
 
-    private String menu;
-    public BookList bookList;
+    BookList bookList;
 
-    // User input for menu option and book selection
-    private String menuSelection;
+    // User input for book selection
     private String bookSelection;
 
     /**
@@ -24,8 +23,7 @@ public class Biblioteca {
     public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
         this.printStream = printStream;
         this.scanner = scanner;
-        this.menu = "Select an option from the menu below:\n 1. See List of Books\n" +
-                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
+        this.menu = new Menu(scanner);
         this.bookList = new BookList();
     }
 
@@ -48,31 +46,34 @@ public class Biblioteca {
      * displays the menu of options
      */
     public void displayMenu(){
-        printStream.println(menu);
+        printStream.println(menu.getMenuOptions());
     }
 
     /**
-     * Accepts user input and stores it as the menu option selection
-     * and calls makeSelection()
+     * makeSelection prompts user to select option from menu and executes
+     *  appropriate actions
      */
-    public void acceptOptionInput() {
-        menuSelection = scanner.nextLine();
-        makeSelection();
-    }
-
     public void makeSelection() {
-
-        //check if menuSelection is an int
-        try {
-            // checking valid integer using parseInt() method
-            int menuSelect = Integer.parseInt(menuSelection);
+        menu.parseOptionInput();
+        int menuSelect = menu.getMenuSelection();
 
             switch (menuSelect) {
 
                 case 1:
                     printBookList();
-                    printStream.println("SELECT A BOOK BY ID");
+                    printStream.println("SELECT A BOOK TO CHECK OUT BY ID");
                     checkOut();
+                    break;
+
+                case 2:
+                    break;
+
+                case 3:
+                    printStream.println("SELECT A BOOK TO RETURN BY ID");
+                    returnBook();
+                    break;
+
+                case 4:
                     break;
 
                 case 5:
@@ -80,24 +81,16 @@ public class Biblioteca {
                     System.exit(0);
                     break;
 
-                default:
+                case -1: // input was not an integer
                     printStream.println("Error: Invalid Selection. Try Again.\n");
+                    break;
+
+                default: // menu option is nonexistent
+                    printStream.println("Error: Invalid Selection. Try Again.\n");
+                    break;
             }
-        }
 
-        // CASE: user input was not an integer
-        catch (NumberFormatException e){
-            printStream.println("Error: Invalid Selection. Try Again.\n");
-        }
     }
-
-    /**
-     * selectBook saves user input as the desired book selection(by ID)
-     * and calls checkOut()
-     */
-//    public void selectBook(){
-//        checkOut();
-//    }
 
     /**
      * checkOut checks out an available book or throws error message for attempt
@@ -144,7 +137,7 @@ public class Biblioteca {
     }
 
     /**
-     * checkOut checks out an available book or throws error message for attempt
+     * returnBook checks out an available book or throws error message for attempt
      * to check out unavailable book
      */
     public void returnBook(){
@@ -197,7 +190,7 @@ public class Biblioteca {
         while(true) {
             displayMenu();
             // Ask user to select a menu option
-            acceptOptionInput();
+            makeSelection();
         }
     }
 

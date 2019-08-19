@@ -47,7 +47,11 @@ public class BookList {
         numBooks++;
         book.setId(numBooks);
         this.bookList.add(book);
-        this.availBookList.add(book);
+
+        // Only add book to availBookList if not checked out
+        if(!book.isCheckedOut()){
+            this.availBookList.add(book);
+        }
     }
 
     /**
