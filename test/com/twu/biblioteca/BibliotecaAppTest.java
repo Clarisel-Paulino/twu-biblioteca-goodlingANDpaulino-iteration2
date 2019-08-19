@@ -88,7 +88,7 @@ public class BibliotecaAppTest {
     public void shouldShowErrorForInvalidSelectionChar(){
         when (mockScannerWrapper.nextLine()).thenReturn("m");
         testBib.makeSelection();
-        verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
+        verify(mockPrintStream).println("Error: Invalid Selection. Enter an ID.\n");
     }
 
     // STORY 1.6 QUIT APPLICATION
@@ -173,7 +173,7 @@ public class BibliotecaAppTest {
         verify(mockPrintStream).println("Book does not exist, try again");
     }
 
-    //CASE: User input was not an integer
+    // CASE: User input was not an integer
     @Test
     public void shouldDisplayUnsuccessfulMessageWhenUserInputNotInt(){
         // Set up mock for when user inputs character that is not integer
@@ -220,11 +220,15 @@ public class BibliotecaAppTest {
     }
 
     // CASE: Book does not exist, out of bounds
+    //TODO fix me
     @Test
     public void shouldDisplayUnsuccessMessageForReturnNonExistentBook(){
-        // Set up mock for when user returns book 3
+        // Set up mock for when user selects option to return book
+        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        // Set up mock for when user returns book 9 (nonexistent)
         when (mockScannerWrapper.nextLine()).thenReturn("9");
-        //testBib.returnBook();
+        testBib.makeSelection();
+
 
         verify(mockPrintStream).println("Book does not exist, try again");
     }
@@ -232,11 +236,13 @@ public class BibliotecaAppTest {
     //CASE: User input was not an integer
     @Test
     public void shouldDisplayUnsuccessMessageForInvalidInput(){
-        // Set up mock for when user returns book 3
+        // Set up mock for when user selects option to return movie
+        when (mockScannerWrapper.nextLine()).thenReturn("4");
+        // Set up mock for when user inputs invalid char
         when (mockScannerWrapper.nextLine()).thenReturn("n");
-        //testBib.returnBook();
+        testBib.makeSelection();
 
-        verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
+        verify(mockPrintStream).println("Error: Invalid Selection. Enter an ID.\n");
     }
 
     // STORY 2.1 VIEW LIST OF AVAILABLE MOVIES
