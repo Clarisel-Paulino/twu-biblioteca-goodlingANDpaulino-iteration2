@@ -186,7 +186,38 @@ public class BibliotecaAppTest {
     }
 
     // STORY 1.9 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
-    // TODO: MAKE THIS TEST
+
+    // CASE: Book exists but is already checked out
+    @Test
+    public void shouldDisplayUnsuccessfulMessageWhenBookAlreadyCheckedOut(){
+        // Set up mock for When user selects book 2
+        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        testBib.selectBook();
+
+        verify(mockPrintStream).println("Book is already checked out. Please choose from list above");
+    }
+
+    // CASE: Book does not exist, out of bounds
+    @Test
+    public void shouldDisplayUnsuccessfulMessageWhenBookDoesNotExist(){
+        // Set up mock for When user selects book 2
+        when (mockScannerWrapper.nextLine()).thenReturn("6");
+        testBib.selectBook();
+
+        verify(mockPrintStream).println("Book does not exist, try again");
+    }
+
+    //CASE: User input was not an integer
+    @Test
+    public void shouldDisplayUnsuccessfulMessageWhenUserInputNotInt(){
+        // Set up mock for When user selects book 2
+        when (mockScannerWrapper.nextLine()).thenReturn("p");
+        testBib.selectBook();
+
+        verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
+    }
+
+    // STORY 1.10 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
 
     //notify if successfully book is returned
 

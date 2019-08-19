@@ -7,7 +7,6 @@ public class Book {
     private String title;
     private int id;
 
-    //TODO add index var
 
     public Book(final String title, final String author, final int year){
         this.title = title;

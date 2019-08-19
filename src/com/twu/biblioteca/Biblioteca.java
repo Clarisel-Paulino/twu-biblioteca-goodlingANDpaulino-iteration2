@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import com.sun.deploy.security.SelectableSecurityManager;
-
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -85,7 +83,6 @@ public class Biblioteca {
         //save user input as book selection
         bookSelection = scanner.nextLine();
         checkOut();
-
     }
 
     /**
@@ -93,23 +90,46 @@ public class Biblioteca {
      * to check out unavailable book
      */
     public void checkOut(){
-        // Fetch selected book from bookList
-        Book book = bookList.getBookByID(bookSelection);
+        //check if bookSelection is an int
+        try
+        {
+            // checking valid integer using parseInt() method
+            int id = Integer.parseInt(bookSelection);
 
-        // Check if book is checked out
-        if (book.isCheckedOut())
-            // if so, return error message
-            printStream.println("Book is already checked out. Please choose from list above");
-        else {
-            // mark book as checkedOut
-            book.setCheckedOut();
-            bookList.updateAvailBooks(book);
+            // check if book is in list bounds
+            if(id <= bookList.numBooks){
+                // Fetch selected book from bookList
+                Book book = bookList.getBookByID(bookSelection);
 
-            // Notify user of successful checkout
-            printStream.println("You successfully checked out book: " + bookSelection);
+                // Check if book is already checked out
+                if (book.isCheckedOut())
+                    // if so, return error message
+                    printStream.println("Book is already checked out. Please choose from list above");
+                else {
+                    // mark book as checkedOut
+                    book.setCheckedOut();
+                    bookList.updateAvailBooks(book);
+
+                    // Notify user of successful checkout
+                    printStream.println("You successfully checked out book: " + bookSelection);
+                }
+            }
+            else {
+                printStream.println("Book does not exist, try again");
+            }
+        }
+
+        // CASE: user input was not an integer
+        catch (NumberFormatException e)
+        {
+            printStream.println("Invalid selection, please enter a book ID and try again");
         }
     }
 
+    /**
+     * start() prints welcome message, keeps menu of options displayed,
+     * and accepts user input until user quits program
+     */
     public void start(){
         printWelcomeMessage();
 
@@ -119,4 +139,6 @@ public class Biblioteca {
             acceptOptionInput();
         }
     }
+
+
 }

@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BookList {
 
@@ -32,6 +31,8 @@ public class BookList {
         Book book2 = new Book("Bible", "Jesus", -1);
         Book book3 = new Book("Moment of Lift", "Melinda Gates", 2018);
 
+        book3.setCheckedOut();
+
         addBook(book1);
         addBook(book2);
         addBook(book3);
@@ -42,7 +43,7 @@ public class BookList {
      * @param book - instance of Book object
      * adds book to bookList (and availBookList) and sets the book ID
      */
-    public void addBook(Book book){
+    private void addBook(Book book){
         numBooks++;
         book.setId(numBooks);
         this.bookList.add(book);
@@ -61,7 +62,7 @@ public class BookList {
 
     /**
      * printBookList
-     * @return list of available books as a String
+     * @return list of available books as a String, with formatting for columns
      */
     public String toString(){
         String i = String.format("%-10s", "BOOK ID");
