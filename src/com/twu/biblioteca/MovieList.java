@@ -70,11 +70,11 @@ public class MovieList extends RentalList {
      */
     public String toString(){
         String i = String.format("%-10s", "MOVIE ID");
-        String t = String.format("%-20s", "TITLE");
+        String t = String.format("%-30s", "TITLE");
         String d = String.format("%-20s", "DIRECTOR");
-        String y = String.format("%-20s", "YEAR");
+        String y = String.format("%-10s", "YEAR");
         String r = String.format("%-20s", "RATING");
-        String line = "\n================================================================\n";
+        String line = "\n================================================================================\n";
 
         StringBuilder sb = new StringBuilder();
         sb.append(i+ t + d + y + r + line);

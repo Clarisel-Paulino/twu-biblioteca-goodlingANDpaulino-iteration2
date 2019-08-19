@@ -244,11 +244,12 @@ public class BibliotecaAppTest {
     // STORY 2.2 CHECKOUT A MOVIE
     @Test
     public void shouldCheckOutMovie(){
-        // Set up mock for When user selects book 2
+        // Set up mock for when user selects option to view movies
         when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // Set up mock for when user selects movie 2
         when (mockScannerWrapper.nextLine()).thenReturn("2");
 
-        // accept user input to check out book
+        // accept user input to make menu selection
         testBib.makeSelection();
 
         Movie mv2 = (Movie)testBib.movieList.getByID("2");
@@ -257,12 +258,15 @@ public class BibliotecaAppTest {
         assertThat(mv2status, is(true));
     }
 
-//    // Checks if book is removed from list when checked out
-//    @Test
-//    public void shouldRemoveBookFromBookListWhenBookIsSelected(){
-//        when (mockScannerWrapper.nextLine()).thenReturn("1");
-//        testBib.checkOut();
-//        testBib.printBookList();
-//        verify(mockPrintStream).println(testBib.bookList.toString());
-//    }
+    // Checks if movie is removed from list when checked out
+    @Test
+    public void shouldRemoveMovieFromListWhenMovieIsSelected(){
+        // Set up mock for when user selects option to view movies
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // Set up mock for when user selects movie 2
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        testBib.makeSelection();
+        testBib.printMovieList();
+        verify(mockPrintStream).println(testBib.movieList.toString());
+    }
 }

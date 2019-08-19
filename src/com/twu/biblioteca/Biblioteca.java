@@ -144,19 +144,20 @@ public class Biblioteca {
                 // Fetch selected item from rentalList
                 RentalItem rentalItem = rentalList.getByID(itemSelection);
 
-                // Check if book is already checked out
+                // Check if item is already checked out
                 if (rentalItem.isCheckedOut())
                     // if so, return error message
                     printStream.println(itemType + " is already checked out. Please choose from list above");
                 else {
-                    // mark book as checkedOut
+                    // mark item as checkedOut
                     rentalItem.setCheckedOut();
-                    bookList.updateAvailList(rentalItem);
+                    rentalList.updateAvailList(rentalItem);
 
                     // Notify user of successful checkout
-                    printStream.println("You successfully checked out" + itemType + "[" + itemSelection + "] " +  rentalItem.getTitle());
+                    printStream.println("You successfully checked out " + itemType + " [" + itemSelection + "] " +  rentalItem.getTitle());
                 }
             }
+            // CASE: Item does not exist
             else {
                 printStream.println(itemType + " does not exist, try again");
             }

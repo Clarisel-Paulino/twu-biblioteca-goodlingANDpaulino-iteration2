@@ -13,9 +13,9 @@ public class Movie extends RentalItem{
     @Override
     public String toString(){
         String i = String.format("%-10s", getID());
-        String t = String.format("%-20s", getTitle());
+        String t = String.format("%-30s", getTitle());
         String m = String.format("%-20s", getMaker());
-        String y = String.format("%-20s", getYear());
+        String y = String.format("%-10s", getYear());
         String r = String.format("%-20s", this.rating);
 
         StringBuilder sb = new StringBuilder();
