@@ -299,37 +299,37 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldPromptUserToLogIn(){
-        String loginCredentials = testBib.fakeUser.getLogInCredentials();
+    public void shouldNotifySuccessfulLogin(){
+        // Set up user entering log in credentials
+        when (mockScannerWrapper.nextLine()).thenReturn("222-7890,*******");
+        testBib.promptLogIn();
 
-        testBib.logIn(loginCredentials);
-
-        assertThat(testBib.currentUser, is(testBib.fakeUser));
+        verify(mockPrintStream).println("\nWelcome back Clarisel Goodling");
     }
-
-    //CASE: User logged in
-    @Test
-    public void shouldShowSeeInfoOptionIfUserLoggedIn(){
-        testBib.menu.setUserLoggedIn();
-        testBib.displayMenu();
-        String expected = "\nSelect an option from the menu below:\n 1. See List of Books\n" +
-                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n 6. See My Account Info\n";
-        verify(mockPrintStream).println(expected);
-    }
-
-    @Test
-    public void shouldShowUserInformationIfUserLoggedIn(){
-        //arrange - user logged in, log in as fake user
-        when (mockScannerWrapper.nextLine()).thenReturn("6");
-        testBib.menu.setUserLoggedIn();
-        testBib.currentUser = testBib.fakeUser;
-        String expected = testBib.fakeUser.getUserInfo();
-
-        //act - select option 6 of menu
-        testBib.makeSelection();
-
-        //assert
-        verify(mockPrintStream).println(expected);
-    }
+//
+//    //CASE: User logged in
+//    @Test
+//    public void shouldShowSeeInfoOptionIfUserLoggedIn(){
+//        testBib.menu.setUserLoggedIn();
+//        testBib.displayMenu();
+//        String expected = "\nSelect an option from the menu below:\n 1. See List of Books\n" +
+//                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n 6. See My Account Info\n";
+//        verify(mockPrintStream).println(expected);
+//    }
+//
+//    @Test
+//    public void shouldShowUserInformationIfUserLoggedIn(){
+//        //arrange - user logged in, log in as fake user
+//        when (mockScannerWrapper.nextLine()).thenReturn("6");
+//        testBib.menu.setUserLoggedIn();
+//        testBib.currentUser = testBib.fakeUser;
+//        String expected = testBib.fakeUser.getUserInfo();
+//
+//        //act - select option 6 of menu
+//        testBib.makeSelection();
+//
+//        //assert
+//        verify(mockPrintStream).println(expected);
+//    }
 
 }

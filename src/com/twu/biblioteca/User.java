@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private ArrayList<RentalItem> checkedOutItems;
+    private boolean loggedIn;
 
     public User(String libraryNumber, String password, String name, String  email, String phoneNumber){
         this.libraryNumber = libraryNumber;
@@ -17,6 +18,7 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.checkedOutItems = new ArrayList<RentalItem>();
+        this.loggedIn = false;
     }
 
     public String getUserInfo(){
@@ -36,10 +38,15 @@ public class User {
         return sb.toString();
     }
 
-    public String getLogInCredentials(){
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + ',' + password);
+    public String getPassword(){
+        return password;
+    }
 
-        return sb.toString();
+    public String getName(){
+        return name;
+    }
+
+    public void setLoggedIn(){
+        this.loggedIn = true;
     }
 }

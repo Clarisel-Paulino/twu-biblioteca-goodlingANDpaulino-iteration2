@@ -9,6 +9,7 @@ public class Biblioteca {
     public Menu menu;
     BookList bookList;
     MovieList movieList;
+    UserList userList;
     public User currentUser;
 
     // User input for item selection
@@ -19,8 +20,6 @@ public class Biblioteca {
 
     // Type of RentalItem selected
     private RentalItem rentalItemType;
-
-
 
     /**
      * Biblioteca Constructor
@@ -34,6 +33,7 @@ public class Biblioteca {
         this.menu = new Menu(scanner);
         this.bookList = new BookList();
         this.movieList = new MovieList();
+        this.userList = new UserList();
         this.currentUser = null;
     }
 
@@ -111,7 +111,9 @@ public class Biblioteca {
 
                 case 6:
                     if(currentUser == null){
-                        //logIn();
+                        printStream.println("\nENTER YOUR LIBRARY NUMBER AND PASSWORD " +
+                                "SEPARATED BY A COMMA");
+                        promptLogIn();
                     }
                     else{
                         printStream.println(currentUser.getUserInfo());
@@ -128,15 +130,24 @@ public class Biblioteca {
             }
     }
 
-    /**
-     * log in a user
-     */
-    public void logIn(String logInCredentials){
-        //parse log in credentials
+    public void promptLogIn(){
+        //save user input as user logIn credentials
+        String logInCreds = scanner.nextLine();
 
-        //verify that fake user's name and password match
+        // call logIn from userList with logInCreds
+        currentUser = userList.logIn(logInCreds);
 
-        //set cur user to fake user
+        // Check if valid user
+        if(currentUser == null){
+            // Invalid login, return error
+            printStream.println("Error logging in. Try again");
+        }
+        else {
+            // Notify of Successful login
+            currentUser.setLoggedIn();
+            menu.setUserLoggedIn();
+            printStream.println("\nWelcome back " + currentUser.getName());
+        }
     }
 
     /**
