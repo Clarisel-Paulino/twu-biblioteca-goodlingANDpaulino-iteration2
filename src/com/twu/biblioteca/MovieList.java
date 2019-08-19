@@ -77,7 +77,7 @@ public class MovieList extends RentalList {
         String line = "\n================================================================================\n";
 
         StringBuilder sb = new StringBuilder();
-        sb.append(i+ t + d + y + r + line);
+        sb.append(i + t + d + y + r + line);
 
         for(RentalItem rental : getAvailItemList()){
             sb.append(rental.toString());
