@@ -30,7 +30,7 @@ public class Biblioteca {
      */
     public void printWelcomeMessage(){
         printStream.println("Welcome to Biblioteca!!! " +
-                "Your librarians Megan and Clarisel at your service.");
+                "Your librarians Megan and Clarisel at your service.\n");
     }
 
     /**
@@ -59,7 +59,8 @@ public class Biblioteca {
 
                 case 1:
                     printBookList();
-                    printStream.println("SELECT A BOOK TO CHECK OUT BY ID");
+                    printStream.println("\nSELECT A BOOK TO CHECK OUT BY ID" +" \n     OR \n" +
+                            "TYPE Q TO QUIT AND RETURN TO MAIN MENU");
                     checkOut();
                     break;
 
@@ -67,7 +68,8 @@ public class Biblioteca {
                     break;
 
                 case 3:
-                    printStream.println("SELECT A BOOK TO RETURN BY ID");
+                    printStream.println("\nSELECT A BOOK TO RETURN BY ID" + "\n     OR \n" +
+                                    "TYPE Q TO QUIT AND RETURN TO MAIN MENU");
                     returnBook();
                     break;
 
@@ -127,9 +129,11 @@ public class Biblioteca {
         }
 
         // CASE: user input was not an integer
-        catch (NumberFormatException e)
-        {
-            printStream.println("Invalid selection, please enter a book ID and try again");
+        catch (NumberFormatException e) {
+            // User can type Q to quit menu option
+            if (!bookSelection.equals("q")) {
+                printStream.println("Invalid selection, please enter a book ID and try again");
+            }
         }
     }
 
@@ -173,7 +177,10 @@ public class Biblioteca {
         // CASE: user input was not an integer
         catch (NumberFormatException e)
         {
-            printStream.println("Invalid selection, please enter a book ID and try again");
+            // User can type Q to quit menu option
+            if(!bookSelection.equals("q")) {
+                printStream.println("Invalid selection, please enter a book ID and try again");
+            }
         }
     }
 

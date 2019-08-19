@@ -41,7 +41,7 @@ public class BibliotecaAppTest {
     public void printWelcomeMessageTest() {
         testBib.printWelcomeMessage();
         verify(mockPrintStream).println("Welcome to Biblioteca!!! " +
-                "Your librarians Megan and Clarisel at your service.");
+                "Your librarians Megan and Clarisel at your service.\n");
     }
 
     // STORY 1.2 VIEW LIST OF ALL BOOKS
@@ -64,7 +64,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
-        String expected = "Select an option from the menu below:\n 1. See List of Books\n" +
+        String expected = "\nSelect an option from the menu below:\n 1. See List of Books\n" +
                 " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
         verify(mockPrintStream).println(expected);
     }

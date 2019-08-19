@@ -9,7 +9,7 @@ public class Menu {
     private int menuSelection;
 
     public Menu(ScannerWrapper scanner) {
-        this.menuOptions = "Select an option from the menu below:\n 1. See List of Books\n" +
+        this.menuOptions = "\nSelect an option from the menu below:\n 1. See List of Books\n" +
                 " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
         this.scanner = scanner;
     }
