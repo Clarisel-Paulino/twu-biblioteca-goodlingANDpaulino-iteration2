@@ -27,8 +27,8 @@ public class BookList {
      */
     private void initBookLists(){
         // Set up book list
-        Book book1 = new Book("Crazy", "Kevin", 1010);
-        Book book2 = new Book("Bible", "Jesus", -1);
+        Book book1 = new Book("Crazy Rich Asians", "Kevin Kwan", 2013);
+        Book book2 = new Book("Beloved", "Toni Morrison", 1987);
         Book book3 = new Book("Moment of Lift", "Melinda Gates", 2018);
 
         book3.setCheckedOut();
@@ -77,8 +77,10 @@ public class BookList {
 
         StringBuilder sb = new StringBuilder();
         sb.append(i+ t + a + y + line);
-        sb.append(availBookList.toString());
 
+        for(Book book : availBookList){
+            sb.append(book.toString());
+        }
         return sb.toString();
     }
 

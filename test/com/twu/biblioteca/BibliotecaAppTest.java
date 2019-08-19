@@ -41,7 +41,7 @@ public class BibliotecaAppTest {
     public void printWelcomeMessageTest() {
         testBib.printWelcomeMessage();
         verify(mockPrintStream).println("Welcome to Biblioteca!!! " +
-                "Your librarians Megan and Clarisel at your service.\n");
+                "Your librarians Megan and Clarisel at your service.");
     }
 
     // STORY 1.2 VIEW LIST OF ALL BOOKS

@@ -30,7 +30,7 @@ public class Biblioteca {
      */
     public void printWelcomeMessage(){
         printStream.println("Welcome to Biblioteca!!! " +
-                "Your librarians Megan and Clarisel at your service.\n");
+                "Your librarians Megan and Clarisel at your service.");
     }
 
     /**
@@ -120,7 +120,7 @@ public class Biblioteca {
                     bookList.updateAvailBooks(book);
 
                     // Notify user of successful checkout
-                    printStream.println("You successfully checked out book: " + bookSelection);
+                    printStream.println("You successfully checked out book [" + bookSelection + "] " +  book.getTitle());
                 }
             }
             else {
@@ -166,7 +166,7 @@ public class Biblioteca {
                     bookList.updateAvailBooks(book);
 
                     // Notify user of successful return
-                    printStream.println("You successfully returned book: " + bookSelection);
+                    printStream.println("You successfully returned book: [" + bookSelection + "] " + book.getTitle());
                 }
             }
             else {
