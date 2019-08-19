@@ -1,10 +1,7 @@
 package com.twu.biblioteca;
 
 import org.junit.Before;
-//import org.junit.Rule;
 import org.junit.Test;
-//import org.junit.contrib.java.lang.system.*;
-//import org.junit.contrib.java.lang.system.Assertion;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -324,6 +321,17 @@ public class BibliotecaAppTest {
         testBib.currentUser = testBib.userList.getUser("222-7890");
         testBib.makeSelection();
         String expected = testBib.currentUser.getUserInfo();
+        verify(mockPrintStream).println(expected);
+    }
+
+    //CASE: Librarian wants to know who has item checked out
+    @Test
+    public void shouldShowUserWhoCheckedOutItem(){
+        Book book3 = (Book)testBib.bookList.getByID("3");
+        testBib.itemType = "book";
+
+        testBib.viewCheckOut(book3);
+        String expected = "Rental item [3] Moment of Lift is checked out by Clarisel Goodling";
         verify(mockPrintStream).println(expected);
     }
 }

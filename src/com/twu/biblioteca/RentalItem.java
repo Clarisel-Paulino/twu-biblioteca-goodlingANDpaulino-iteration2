@@ -7,16 +7,12 @@ public class RentalItem {
     private String title;
     private int id;
 
-    // User currently in possession of the rentalItem
-    private User currUser;
-
 
     public RentalItem(final String title, final String maker, final int year){
         this.title = title;
         this.maker = maker;
         this.year = year;
         this.checkedOut = false;
-        this.currUser = null;
     }
 
     public String getTitle(){
@@ -35,18 +31,12 @@ public class RentalItem {
         return this.id;
     }
 
-    public void setCheckedOut(User user) {
+    public void setCheckedOut() {
         checkedOut = true;
-        this.currUser = user;
     }
 
     public void setReturned() {
         checkedOut = false;
-        this.currUser = null;
-    }
-
-    public User getCurrUser(){
-        return this.currUser;
     }
 
     public void setId(int id) {

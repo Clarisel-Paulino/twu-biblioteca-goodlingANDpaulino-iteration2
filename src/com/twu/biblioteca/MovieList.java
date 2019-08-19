@@ -21,7 +21,8 @@ public class MovieList extends RentalList {
         //get user to set who checked out book 3 for testing
         User user = new User("222-7890", "*******",
                 "Clarisel Goodling", "megan.paulino@gmail.com", "407-773-1551");
-        movie3.setCheckedOut(user);
+        movie3.setCheckedOut();
+        addCheckedOutItem(user,movie3);
 
         initAdd(movie1);
         initAdd(movie2);

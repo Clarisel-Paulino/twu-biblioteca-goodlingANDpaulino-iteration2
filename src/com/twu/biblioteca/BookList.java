@@ -23,7 +23,8 @@ public class BookList extends RentalList{
         //get user to set who checked out book 3 for testing
         User user = new User("222-7890", "*******",
                 "Clarisel Goodling", "megan.paulino@gmail.com", "407-773-1551");
-        book3.setCheckedOut(user);
+        book3.setCheckedOut();
+        addCheckedOutItem(user,book3);
 
         initAdd(book1);
         initAdd(book2);

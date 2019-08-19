@@ -150,11 +150,25 @@ public class Biblioteca {
         }
     }
 
+    public void viewCheckOut(RentalItem rental){
+        if (itemType.equals("book")) {
+            printStream.println(bookList.viewCheckedOut(rental));
+        }else{
+            printStream.println(movieList.viewCheckedOut(rental));
+        }
+    }
+
     /**
      * checkOut checks out an available RentalItem or throws error message for attempt
      * to check out unavailable item
      */
     public void checkOut(){
+
+        if (currentUser == null){
+            printStream.println("\nPlease log in to check out an item");
+            return;
+        }
+
         //save user input as item selection
         itemSelection = scanner.nextLine();
 
@@ -187,7 +201,7 @@ public class Biblioteca {
                     printStream.println(itemType + " is already checked out. Please choose from list above");
                 else {
                     // mark item as checkedOut
-                    rentalItem.setCheckedOut(currentUser);
+                    rentalItem.setCheckedOut();
                     rentalList.updateAvailList(rentalItem);
 
                     // Keep track of which user checked out the book

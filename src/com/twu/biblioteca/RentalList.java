@@ -82,4 +82,20 @@ public class RentalList {
     public void removeCheckedOutItem(RentalItem item){
         checkedOutList.remove(item);
     }
+
+    /**
+     * viewCheckedOUt
+     * @param item - rental item that is checked out
+     * @return String detailing who checked out item
+     * Used by librarian to keep users accountable
+     */
+    public String viewCheckedOut(RentalItem item){
+
+        User user = checkedOutList.get(item);
+        String itemTitle = item.getTitle();
+        int itemID = item.getID();
+
+        return "Rental item [" + itemID + "] " + itemTitle + " is checked out by " + user.getName();
+
+    }
 }
