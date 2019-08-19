@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 public class Biblioteca {
 
@@ -15,7 +14,7 @@ public class Biblioteca {
     private String itemSelection;
 
     // String specifying type of RentalItem selected for printing
-    private String itemType;
+    public String itemType;
 
     // Type of RentalItem selected
     private RentalItem rentalItemType;

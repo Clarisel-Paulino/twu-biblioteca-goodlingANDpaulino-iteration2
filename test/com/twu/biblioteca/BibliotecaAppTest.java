@@ -1,9 +1,10 @@
 package com.twu.biblioteca;
 
 import org.junit.Before;
+//import org.junit.Rule;
 import org.junit.Test;
+//import org.junit.contrib.java.lang.system.*;
 //import org.junit.contrib.java.lang.system.Assertion;
-//import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -12,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
 
 public class BibliotecaAppTest {
 
@@ -71,7 +73,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldNotShowBookListForSelectionThatIsNot1(){
-        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
         testBib.makeSelection();
         verify(mockPrintStream, never()).println(testBib.bookList.toString());
     }
@@ -95,19 +97,11 @@ public class BibliotecaAppTest {
     //TODO: Test if exited app? Maybe test exit code?
     @Test
     public void shouldexitForSelection5() throws Exception{
-            when (mockScannerWrapper.nextLine()).thenReturn("5");
-            testBib.makeSelection();
-            assertEquals("Exit status", 0);
+        when (mockScannerWrapper.nextLine()).thenReturn("5");
+        testBib.makeSelection();
+        //exit.expectSystemExit();
     }
 
-//    @Rule
-//    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-//
-//    @Test
-//    public void exits() {
-//        exit.expectSystemExit();
-//        AppWithExit.doSomethingAndExit(); // acceptoptions()
-//    }
 //
 //    @Test
 //    public void exitsWithStatusCode1() {
@@ -118,13 +112,15 @@ public class BibliotecaAppTest {
     // STORY 1.7 CHECKOUT A BOOK
     @Test
     public void shouldCheckOutBook(){
-        // Set up mock for When user selects book 2
-        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // set itemType to book
+        testBib.itemType = "book";
+        // Set up mock for when user selects book 1
+        when (mockScannerWrapper.nextLine()).thenReturn("1");
 
         // accept user input to check out book
         testBib.checkOut();
 
-        Book bk2 = (Book)testBib.bookList.getByID("2");
+        Book bk2 = (Book)testBib.bookList.getByID("1");
         boolean bk2status = bk2.isCheckedOut();
 
         assertThat(bk2status, is(true));
@@ -133,7 +129,11 @@ public class BibliotecaAppTest {
     // Checks if book is removed from list when checked out
     @Test
     public void shouldRemoveBookFromBookListWhenBookIsSelected(){
-        when (mockScannerWrapper.nextLine()).thenReturn("1");
+        // set itemType to book
+        testBib.itemType = "book";
+        // Set up mock for when user selects book 2
+        when(mockScannerWrapper.nextLine()).thenReturn("2");
+
         testBib.checkOut();
         testBib.printBookList();
         verify(mockPrintStream).println(testBib.bookList.toString());
@@ -142,13 +142,15 @@ public class BibliotecaAppTest {
     // STORY 1.8 SUCCESS MESSAGE FOR CHECKED OUT BOOK
     @Test
     public void shouldDisplaySuccessMessageWhenBookCheckedOut(){
-        // Set up mock for When user selects book 2
-        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // set itemType to book
+        testBib.itemType = "book";
+        // Set up mock for when user selects book 2
+        when(mockScannerWrapper.nextLine()).thenReturn("2");
 
         // accept user input to check out book
         testBib.checkOut();
 
-        verify(mockPrintStream).println("You successfully checked out book: 2");
+        verify(mockPrintStream).println("You successfully checked out book [2] Beloved");
     }
 
     // STORY 1.9 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
@@ -156,26 +158,32 @@ public class BibliotecaAppTest {
     // CASE: Book exists but is already checked out
     @Test
     public void shouldDisplayUnsuccessfulMessageWhenBookAlreadyCheckedOut(){
-        // Set up mock for When user selects book 2
+        // set itemType to book
+        testBib.itemType = "book";
+        // Set up mock for When user selects book 3
         when (mockScannerWrapper.nextLine()).thenReturn("3");
         testBib.checkOut();
 
-        verify(mockPrintStream).println("Book is already checked out. Please choose from list above");
+        verify(mockPrintStream).println("book is already checked out. Please choose from list above");
     }
 
     // CASE: Book does not exist, out of bounds
     @Test
     public void shouldDisplayUnsuccessfulMessageWhenBookDoesNotExist(){
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for When user selects book 2
         when (mockScannerWrapper.nextLine()).thenReturn("6");
         testBib.checkOut();
 
-        verify(mockPrintStream).println("Book does not exist, try again");
+        verify(mockPrintStream).println("book does not exist, try again");
     }
 
     // CASE: User input was not an integer
     @Test
     public void shouldDisplayUnsuccessfulMessageWhenUserInputNotInt(){
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for when user inputs character that is not integer
         when (mockScannerWrapper.nextLine()).thenReturn("p");
         testBib.checkOut();
@@ -186,10 +194,12 @@ public class BibliotecaAppTest {
     // STORY 1.10 RETURN A BOOK
     @Test
     public void shouldReturnBook() {
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for When user selects book 3
         when(mockScannerWrapper.nextLine()).thenReturn("3");
 
-        //testBib.returnBook();
+        testBib.returnItem();
 
         // This book is initially checked out
         Book bk3 = (Book)testBib.bookList.getByID("3");
@@ -201,48 +211,50 @@ public class BibliotecaAppTest {
     // STORY 1.11 NOTIFIED ON SUCCESSFUL RETURN
     @Test
     public void shouldDisplaySuccessMessageForReturnBook(){
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for when user returns book 3
         when (mockScannerWrapper.nextLine()).thenReturn("3");
-        //testBib.returnBook();
+        testBib.returnItem();
 
-        verify(mockPrintStream).println("You successfully returned book: 3");
+        verify(mockPrintStream).println("You successfully returned book [3] Moment of Lift");
     }
 
     // STORY 1.12 NOTIFIED ON UNSUCCESSFUL RETURN
     // CASE: Book exists but is already checked out
     @Test
     public void shouldDisplayUnsuccessMessageForReturnAvailableBook(){
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for when user returns book 3
         when (mockScannerWrapper.nextLine()).thenReturn("2");
-        //testBib.returnBook();
+        testBib.returnItem();
 
-        verify(mockPrintStream).println("Book is already at the library.");
+        verify(mockPrintStream).println("book is already at the library. Please choose from list above");
     }
 
     // CASE: Book does not exist, out of bounds
-    //TODO fix me
     @Test
     public void shouldDisplayUnsuccessMessageForReturnNonExistentBook(){
-        // Set up mock for when user selects option to return book
-        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for when user returns book 9 (nonexistent)
         when (mockScannerWrapper.nextLine()).thenReturn("9");
-        testBib.makeSelection();
+        testBib.returnItem();
 
-
-        verify(mockPrintStream).println("Book does not exist, try again");
+        verify(mockPrintStream).println("book does not exist, try again");
     }
 
     //CASE: User input was not an integer
     @Test
-    public void shouldDisplayUnsuccessMessageForInvalidInput(){
-        // Set up mock for when user selects option to return movie
-        when (mockScannerWrapper.nextLine()).thenReturn("4");
+    public void shouldDisplayUnsuccessMessageForInvalidInputReturn(){
+        // set itemType to book
+        testBib.itemType = "book";
         // Set up mock for when user inputs invalid char
         when (mockScannerWrapper.nextLine()).thenReturn("n");
-        testBib.makeSelection();
+        testBib.returnItem();
 
-        verify(mockPrintStream).println("Error: Invalid Selection. Enter an ID.\n");
+        verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
     }
 
     // STORY 2.1 VIEW LIST OF AVAILABLE MOVIES
@@ -250,13 +262,13 @@ public class BibliotecaAppTest {
     // STORY 2.2 CHECKOUT A MOVIE
     @Test
     public void shouldCheckOutMovie(){
-        // Set up mock for when user selects option to view movies
-        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // set itemType to book
+        testBib.itemType = "movie";
         // Set up mock for when user selects movie 2
         when (mockScannerWrapper.nextLine()).thenReturn("2");
 
         // accept user input to make menu selection
-        testBib.makeSelection();
+        testBib.checkOut();
 
         Movie mv2 = (Movie)testBib.movieList.getByID("2");
         boolean mv2status = mv2.isCheckedOut();
@@ -267,11 +279,11 @@ public class BibliotecaAppTest {
     // Checks if movie is removed from list when checked out
     @Test
     public void shouldRemoveMovieFromListWhenMovieIsSelected(){
-        // Set up mock for when user selects option to view movies
-        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        // set itemType to book
+        testBib.itemType = "movie";
         // Set up mock for when user selects movie 2
         when (mockScannerWrapper.nextLine()).thenReturn("2");
-        testBib.makeSelection();
+        testBib.checkOut();
         testBib.printMovieList();
         verify(mockPrintStream).println(testBib.movieList.toString());
     }
