@@ -26,6 +26,10 @@ public class RentalItem {
         return this.maker;
     }
 
+    public int getID() {
+        return this.id;
+    }
+
     public void setCheckedOut() {
         checkedOut = true;
     }
@@ -45,11 +49,11 @@ public class RentalItem {
     public String toString(){
         String i = String.format("%-10s", id);
         String t = String.format("%-20s", title);
-        String a = String.format("%-20s", maker);
+        String m = String.format("%-20s", maker);
         String y = String.format("%-20s", year);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(i + t + a + y + "\n");
+        sb.append(i + t + m + y + "\n");
 
         return sb.toString();
     }
