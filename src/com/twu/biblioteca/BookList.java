@@ -2,24 +2,25 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 
-public class BookList {
+public class BookList extends RentalList{
 
-    // List of all books in library
-    private ArrayList<Book> bookList;
-    // List of books available for checkout
-    public ArrayList<Book> availBookList;
+//    // List of all books in library
+//    private ArrayList<Book> bookList;
+//    // List of books available for checkout
+//    public ArrayList<Book> availBookList;
 
-    // Current number of books, used to give book ID
-    public int numBooks;
+//    // Current number of books, used to give book ID
+//    public int numBooks;
 
     /**
      * BookList Constructor
      * Initializes availBookList and bookList
      */
     public BookList(){
-        this.availBookList = new ArrayList<Book>();
-        this.bookList = new ArrayList<Book>();
+//        this.availBookList = new ArrayList<Book>();
+//        this.bookList = new ArrayList<Book>();
         initBookLists();
+
     }
 
     /**
@@ -33,36 +34,40 @@ public class BookList {
 
         book3.setCheckedOut();
 
-        initAddBook(book1);
-        initAddBook(book2);
-        initAddBook(book3);
+        initAdd(book1);
+        initAdd(book2);
+        initAdd(book3);
+
+//        initAddBook(book1);
+//        initAddBook(book2);
+//        initAddBook(book3);
     }
 
-    /**
-     * initAddBook
-     * @param book - instance of Book object
-     * adds book to bookList (and availBookList) and sets the book ID
-     */
-    private void initAddBook(Book book){
-        numBooks++;
-        book.setId(numBooks);
-        this.bookList.add(book);
+//    /**
+//     * initAddBook
+//     * @param book - instance of Book object
+//     * adds book to bookList (and availBookList) and sets the book ID
+//     */
+//    private void initAddBook(Book book){
+//        numBooks++;
+//        book.setId(numBooks);
+//        this.bookList.add(book);
+//
+//        // Only add book to availBookList if not checked out
+//        if(!book.isCheckedOut()){
+//            this.availBookList.add(book);
+//        }
+//    }
 
-        // Only add book to availBookList if not checked out
-        if(!book.isCheckedOut()){
-            this.availBookList.add(book);
-        }
-    }
-
-    /**
-     * getBookByID
-     * @param idString - book id as a string
-     * @return Book object with the idString as its id
-     */
-    public Book getBookByID(String idString){
-        int id = Integer.parseInt(idString);
-        return bookList.get(id - 1);
-    }
+//    /**
+//     * getBookByID
+//     * @param idString - book id as a string
+//     * @return Book object with the idString as its id
+//     */
+//    public Book getBookByID(String idString){
+//        int id = Integer.parseInt(idString);
+//        return bookList.get(id - 1);
+//    }
 
     /**
      * prints availBookList
@@ -78,27 +83,25 @@ public class BookList {
         StringBuilder sb = new StringBuilder();
         sb.append(i+ t + a + y + line);
 
-        for(Book book : availBookList){
-            sb.append(book.toString());
+        for(RentalItem item : getAvailItemList()){
+            sb.append(item.toString());
         }
         return sb.toString();
     }
 
-    public ArrayList<Book> getBookList(){
-        return availBookList;
-    }
-
-    /**
-     * updateAvailBooks
-     * @param book -- Book object to be removed
-     *  Removes book from the list of available books
-     */
-    public void updateAvailBooks(Book book){
-        if (book.isCheckedOut()){
-            availBookList.remove(book);
-        }
-        else{
-            availBookList.add(book);
-        }
-    }
+//
+//
+//    /**
+//     * updateAvailBooks
+//     * @param book -- Book object to be removed
+//     *  Removes book from the list of available books
+//     */
+//    public void updateAvailBooks(Book book){
+//        if (book.isCheckedOut()){
+//            availBookList.remove(book);
+//        }
+//        else{
+//            availBookList.add(book);
+//        }
+//    }
 }

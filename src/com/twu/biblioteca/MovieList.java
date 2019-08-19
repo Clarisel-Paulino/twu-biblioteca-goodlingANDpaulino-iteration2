@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 
-public class MovieList {
+public class MovieList extends RentalList {
 
     // List of all movies in library
     private ArrayList<Movie> movieList;

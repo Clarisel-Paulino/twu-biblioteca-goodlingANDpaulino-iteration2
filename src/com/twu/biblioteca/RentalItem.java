@@ -7,6 +7,7 @@ public class RentalItem {
     private String title;
     private int id;
 
+
     public RentalItem(final String title, final String maker, final int year){
         this.title = title;
         this.maker = maker;
@@ -41,6 +42,7 @@ public class RentalItem {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public boolean isCheckedOut() {
         return checkedOut;

@@ -9,6 +9,7 @@ public class Movie extends RentalItem{
         this.rating = rating;
     }
 
+
     @Override
     public String toString(){
         String i = String.format("%-10s", getID());

@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class Biblioteca {
 
@@ -8,9 +9,16 @@ public class Biblioteca {
     private ScannerWrapper scanner;
     private Menu menu;
     BookList bookList;
+    MovieList movieList;
 
-    // User input for book selection
-    private String bookSelection;
+    // User input for item selection
+    private String itemSelection;
+
+    // String specifying type of RentalItem selected for printing
+    private String itemType;
+
+    // Type of RentalItem selected
+    private RentalItem rentalItemType;
 
     /**
      * Biblioteca Constructor
@@ -23,6 +31,7 @@ public class Biblioteca {
         this.scanner = scanner;
         this.menu = new Menu(scanner);
         this.bookList = new BookList();
+        this.movieList = new MovieList();
     }
 
     /**
@@ -37,6 +46,13 @@ public class Biblioteca {
      * Prints list of available books displaying the title, author, year and book id
      */
     public void printBookList(){
+        printStream.println(bookList.toString());
+    }
+
+    /**
+     * Prints list of available movies displaying the title, director, year, book id, and rating
+     */
+    public void printMovieList(){
         printStream.println(bookList.toString());
     }
 
@@ -61,10 +77,16 @@ public class Biblioteca {
                     printBookList();
                     printStream.println("\nSELECT A BOOK TO CHECK OUT BY ID" +" \n     OR \n" +
                             "TYPE Q TO QUIT AND RETURN TO MAIN MENU");
+                    this.itemType = "book";
                     checkOut();
                     break;
 
                 case 2:
+                    printMovieList();
+                    printStream.println("\nSELECT A MOVIE TO CHECK OUT BY ID" +" \n     OR \n" +
+                            "TYPE Q TO QUIT AND RETURN TO MAIN MENU");
+                    this.itemType = "movie";
+                    checkOut();
                     break;
 
                 case 3:
@@ -92,97 +114,106 @@ public class Biblioteca {
     }
 
     /**
-     * checkOut checks out an available book or throws error message for attempt
-     * to check out unavailable book
+     * checkOut checks out an available RentalItem or throws error message for attempt
+     * to check out unavailable item
      */
     public void checkOut(){
-        //save user input as book selection
-        bookSelection = scanner.nextLine();
+        //save user input as item selection
+        itemSelection = scanner.nextLine();
 
-        //check if bookSelection is an int
+        RentalList rentalList;
+        if(itemType.equals("book")){
+            rentalList = bookList;
+        }
+        else {
+            rentalList = movieList;
+        }
+        int numItems = rentalList.getNumItems();
+
+        //check if itemSelection is an int
         try
         {
             // checking valid integer using parseInt() method
-            int id = Integer.parseInt(bookSelection);
+            int id = Integer.parseInt(itemSelection);
 
-            // check if book is in list bounds
-            if(id <= bookList.numBooks){
-                // Fetch selected book from bookList
-                Book book = bookList.getBookByID(bookSelection);
+            // check if item is in list bounds
+            if(id <= numItems){
+                // Fetch selected item from rentalList
+                RentalItem rentalItem = rentalList.getByID(itemSelection);
 
                 // Check if book is already checked out
-                if (book.isCheckedOut())
+                if (rentalItem.isCheckedOut())
                     // if so, return error message
-                    printStream.println("Book is already checked out. Please choose from list above");
+                    printStream.println(itemType + " is already checked out. Please choose from list above");
                 else {
                     // mark book as checkedOut
-                    book.setCheckedOut();
-                    bookList.updateAvailBooks(book);
+                    rentalItem.setCheckedOut();
+                    bookList.updateAvailList(rentalItem);
 
                     // Notify user of successful checkout
-                    printStream.println("You successfully checked out book [" + bookSelection + "] " +  book.getTitle());
+                    printStream.println("You successfully checked out" + itemType + "[" + itemSelection + "] " +  rentalItem.getTitle());
                 }
             }
             else {
-                printStream.println("Book does not exist, try again");
+                printStream.println(itemType + " does not exist, try again");
             }
         }
 
         // CASE: user input was not an integer
         catch (NumberFormatException e) {
             // User can type Q to quit menu option
-            if (!bookSelection.equals("q")) {
-                printStream.println("Invalid selection, please enter a book ID and try again");
+            if (!itemSelection.equals("q")) {
+                printStream.println("Invalid selection, please enter a " + itemType + " ID and try again");
             }
         }
     }
 
-    /**
-     * returnBook checks out an available book or throws error message for attempt
-     * to check out unavailable book
-     */
-    public void returnBook(){
-        //save user input as book selection
-        bookSelection = scanner.nextLine();
-
-        //check if bookSelection is an int
-        try
-        {
-            // checking valid integer using parseInt() method
-            int id = Integer.parseInt(bookSelection);
-
-            // check if book is in list bounds
-            if(id <= bookList.numBooks){
-                // Fetch selected book from bookList
-                Book book = bookList.getBookByID(bookSelection);
-
-                // Check if book is already checked out
-                if (!book.isCheckedOut())
-                    // if so, error message
-                    printStream.println("Book is already at the library.");
-                else {
-                    // mark book as returned
-                    book.setReturned();
-                    bookList.updateAvailBooks(book);
-
-                    // Notify user of successful return
-                    printStream.println("You successfully returned book: [" + bookSelection + "] " + book.getTitle());
-                }
-            }
-            else {
-                printStream.println("Book does not exist, try again");
-            }
-        }
-
-        // CASE: user input was not an integer
-        catch (NumberFormatException e)
-        {
-            // User can type Q to quit menu option
-            if(!bookSelection.equals("q")) {
-                printStream.println("Invalid selection, please enter a book ID and try again");
-            }
-        }
-    }
+//    /**
+//     * returnBook checks out an available book or throws error message for attempt
+//     * to check out unavailable book
+//     */
+//    public void returnBook(){
+//        //save user input as book selection
+//        bookSelection = scanner.nextLine();
+//
+//        //check if bookSelection is an int
+//        try
+//        {
+//            // checking valid integer using parseInt() method
+//            int id = Integer.parseInt(bookSelection);
+//
+//            // check if book is in list bounds
+//            if(id <= bookList.numBooks){
+//                // Fetch selected book from bookList
+//                Book book = bookList.getBookByID(bookSelection);
+//
+//                // Check if book is already checked out
+//                if (!book.isCheckedOut())
+//                    // if so, error message
+//                    printStream.println("Book is already at the library.");
+//                else {
+//                    // mark book as returned
+//                    book.setReturned();
+//                    bookList.updateAvailBooks(book);
+//
+//                    // Notify user of successful return
+//                    printStream.println("You successfully returned book: [" + bookSelection + "] " + book.getTitle());
+//                }
+//            }
+//            else {
+//                printStream.println("Book does not exist, try again");
+//            }
+//        }
+//
+//        // CASE: user input was not an integer
+//        catch (NumberFormatException e)
+//        {
+//            // User can type Q to quit menu option
+//            if(!bookSelection.equals("q")) {
+//                printStream.println("Invalid selection, please enter a book ID and try again");
+//            }
+//        }
+//    }
 
     /**
      * start() prints welcome message, keeps menu of options displayed,
