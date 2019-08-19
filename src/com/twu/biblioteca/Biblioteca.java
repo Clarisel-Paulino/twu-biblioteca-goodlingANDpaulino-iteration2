@@ -232,6 +232,13 @@ public class Biblioteca {
      */
 
     public void returnItem(){
+
+        // prompt user to log in to return item
+        if (currentUser == null){
+            printStream.println("\nPlease log in to return an item");
+            return;
+        }
+
         //save user input as item selection
         itemSelection = scanner.nextLine();
 
