@@ -39,7 +39,7 @@ public class BookList {
     }
 
     /**
-     * addBook
+     * initAddBook
      * @param book - instance of Book object
      * adds book to bookList (and availBookList) and sets the book ID
      */
@@ -65,7 +65,7 @@ public class BookList {
     }
 
     /**
-     * printBookList
+     * prints availBookList
      * @return list of available books as a String, with formatting for columns
      */
     public String toString(){
