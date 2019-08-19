@@ -28,7 +28,7 @@ public class MovieList extends RentalList {
     private void initMovieLists(){
         // Set up movie list
         Movie movie1 = new Movie("Avengers: End Game", "Cool person", 2019, 9);
-        Movie movie2 = new Movie("Once upon a Time... In Hollywood", "Quentin Terentino", 2019, 8);
+        Movie movie2 = new Movie("Once upon a Time...", "Quentin T", 2019, 8);
         Movie movie3 = new Movie("Aladdin", "Walt Disney", 1992, 10);
 
         movie3.setCheckedOut();

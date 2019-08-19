@@ -53,7 +53,7 @@ public class Biblioteca {
      * Prints list of available movies displaying the title, director, year, book id, and rating
      */
     public void printMovieList(){
-        printStream.println(bookList.toString());
+        printStream.println(movieList.toString());
     }
 
     /**
@@ -121,14 +121,17 @@ public class Biblioteca {
         //save user input as item selection
         itemSelection = scanner.nextLine();
 
+        // Initialize RentalList object
         RentalList rentalList;
+
+        // CASE: rental item is a book
         if(itemType.equals("book")){
             rentalList = bookList;
         }
+        // CASE: rental item is a movie
         else {
             rentalList = movieList;
         }
-        int numItems = rentalList.getNumItems();
 
         //check if itemSelection is an int
         try
@@ -137,7 +140,7 @@ public class Biblioteca {
             int id = Integer.parseInt(itemSelection);
 
             // check if item is in list bounds
-            if(id <= numItems){
+            if(id <= rentalList.getNumItems()){
                 // Fetch selected item from rentalList
                 RentalItem rentalItem = rentalList.getByID(itemSelection);
 
