@@ -31,6 +31,9 @@ public class Book {
         checkedOut = true;
     }
 
+    public void setReturned() {
+        checkedOut = false;
+    }
 
     public void setId(int id) {
         this.id = id;

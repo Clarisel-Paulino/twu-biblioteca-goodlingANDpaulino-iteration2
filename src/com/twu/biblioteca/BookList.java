@@ -33,9 +33,9 @@ public class BookList {
 
         book3.setCheckedOut();
 
-        addBook(book1);
-        addBook(book2);
-        addBook(book3);
+        initAddBook(book1);
+        initAddBook(book2);
+        initAddBook(book3);
     }
 
     /**
@@ -43,7 +43,7 @@ public class BookList {
      * @param book - instance of Book object
      * adds book to bookList (and availBookList) and sets the book ID
      */
-    private void addBook(Book book){
+    private void initAddBook(Book book){
         numBooks++;
         book.setId(numBooks);
         this.bookList.add(book);
@@ -88,7 +88,11 @@ public class BookList {
      *  Removes book from the list of available books
      */
     public void updateAvailBooks(Book book){
-        availBookList.remove(book);
+        if (book.isCheckedOut()){
+            availBookList.remove(book);
+        }
+        else{
+            availBookList.add(book);
+        }
     }
-
 }

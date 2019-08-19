@@ -87,6 +87,7 @@ public class BibliotecaAppTest {
 //        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
 //    }
     // STORY 1.2 VIEW LIST OF ALL BOOKS
+    //TODO fix test - loops on 1
     @Test
     public void shouldShowBookListForSelectionOne(){
         when(mockScannerWrapper.nextLine()).thenReturn("1");
@@ -119,8 +120,15 @@ public class BibliotecaAppTest {
 
     // STORY 1.5 NOTIFICATION FOR INVALID SELECTION
     @Test
-    public void shouldShowErrorForInvalidSelection(){
-        when (mockScannerWrapper.nextLine()).thenReturn("3");
+    public void shouldShowErrorForInvalidSelectionInt(){
+        when (mockScannerWrapper.nextLine()).thenReturn("8");
+        testBib.acceptOptionInput();
+        verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
+    }
+
+    @Test
+    public void shouldShowErrorForInvalidSelectionChar(){
+        when (mockScannerWrapper.nextLine()).thenReturn("m");
         testBib.acceptOptionInput();
         verify(mockPrintStream).println("Error: Invalid Selection. Try Again.\n");
     }
@@ -129,7 +137,6 @@ public class BibliotecaAppTest {
     //TODO: Test if exited app? Maybe test exit code?
     @Test
     public void shouldexitForSelection5() throws Exception{
-
             when (mockScannerWrapper.nextLine()).thenReturn("5");
             testBib.acceptOptionInput();
             assertEquals("Exit status", 0);
@@ -157,7 +164,7 @@ public class BibliotecaAppTest {
         when (mockScannerWrapper.nextLine()).thenReturn("2");
 
         // accept user input to check out book
-        testBib.selectBook();
+        testBib.checkOut();
 
         Book bk2 = testBib.bookList.getBookByID("2");
         boolean bk2status = bk2.isCheckedOut();
@@ -169,7 +176,7 @@ public class BibliotecaAppTest {
     @Test
     public void shouldRemoveBookFromBookListWhenBookIsSelected(){
         when (mockScannerWrapper.nextLine()).thenReturn("1");
-        testBib.selectBook();
+        testBib.checkOut();
         testBib.printBookList();
         verify(mockPrintStream).println(testBib.bookList.toString());
     }
@@ -181,7 +188,7 @@ public class BibliotecaAppTest {
         when (mockScannerWrapper.nextLine()).thenReturn("2");
 
         // accept user input to check out book
-        testBib.selectBook();
+        testBib.checkOut();
 
         verify(mockPrintStream).println("You successfully checked out book: 2");
     }
@@ -193,7 +200,7 @@ public class BibliotecaAppTest {
     public void shouldDisplayUnsuccessfulMessageWhenBookAlreadyCheckedOut(){
         // Set up mock for When user selects book 2
         when (mockScannerWrapper.nextLine()).thenReturn("3");
-        testBib.selectBook();
+        testBib.checkOut();
 
         verify(mockPrintStream).println("Book is already checked out. Please choose from list above");
     }
@@ -203,7 +210,7 @@ public class BibliotecaAppTest {
     public void shouldDisplayUnsuccessfulMessageWhenBookDoesNotExist(){
         // Set up mock for When user selects book 2
         when (mockScannerWrapper.nextLine()).thenReturn("6");
-        testBib.selectBook();
+        testBib.checkOut();
 
         verify(mockPrintStream).println("Book does not exist, try again");
     }
@@ -211,22 +218,63 @@ public class BibliotecaAppTest {
     //CASE: User input was not an integer
     @Test
     public void shouldDisplayUnsuccessfulMessageWhenUserInputNotInt(){
-        // Set up mock for When user selects book 2
+        // Set up mock for when user inputs character that is not integer
         when (mockScannerWrapper.nextLine()).thenReturn("p");
-        testBib.selectBook();
+        testBib.checkOut();
 
         verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
     }
 
     // STORY 1.10 RETURN A BOOK
     @Test
-    public void shouldDisplaySuccessMessageForReturnBook(){
-        
+    public void shouldReturnBook() {
+        // Set up mock for When user selects book 3
+        when(mockScannerWrapper.nextLine()).thenReturn("3");
+
+        testBib.returnBook();
+
+        // This book is initially checked out
+        Book bk3 = testBib.bookList.getBookByID("3");
+        boolean bk3status = bk3.isCheckedOut();
+
+        assertThat(bk3status, is(false));
     }
 
+    // STORY 1.11 NOTIFIED ON SUCCESSFUL RETURN
+    @Test
+    public void shouldDisplaySuccessMessageForReturnBook(){
+        // Set up mock for when user returns book 3
+        when (mockScannerWrapper.nextLine()).thenReturn("3");
+        testBib.returnBook();
 
+        verify(mockPrintStream).println("You successfully returned book: 3");
+    }
 
-    //notify if successfully book is returned
+    // STORY 1.11 NOTIFIED ON UNSUCCESSFUL RETURN
+    @Test
+    public void shouldDisplayUnsuccessMessageForReturnAvailableBook(){
+        // Set up mock for when user returns book 3
+        when (mockScannerWrapper.nextLine()).thenReturn("2");
+        testBib.returnBook();
 
-    //notify if book is not successfully returned
+        verify(mockPrintStream).println("Book is already at the library.");
+    }
+    @Test
+    public void shouldDisplayUnsuccessMessageForReturnNonExistentBook(){
+        // Set up mock for when user returns book 3
+        when (mockScannerWrapper.nextLine()).thenReturn("9");
+        testBib.returnBook();
+
+        verify(mockPrintStream).println("Book does not exist, try again");
+    }
+
+    @Test
+    public void shouldDisplayUnsuccessMessageForInvalidInput(){
+        // Set up mock for when user returns book 3
+        when (mockScannerWrapper.nextLine()).thenReturn("n");
+        testBib.returnBook();
+
+        verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
+    }
+    
 }

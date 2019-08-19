@@ -72,13 +72,16 @@ public class Biblioteca {
                 case 1:
                     printBookList();
                     printStream.println("SELECT A BOOK BY ID");
-                    selectBook();
+                    checkOut();
                     break;
 
                 case 5:
                     printStream.println("Thanks, come again!");
                     System.exit(0);
                     break;
+
+                default:
+                    printStream.println("Error: Invalid Selection. Try Again.\n");
             }
         }
 
@@ -92,17 +95,18 @@ public class Biblioteca {
      * selectBook saves user input as the desired book selection(by ID)
      * and calls checkOut()
      */
-    public void selectBook(){
-        //save user input as book selection
-        bookSelection = scanner.nextLine();
-        checkOut();
-    }
+//    public void selectBook(){
+//        checkOut();
+//    }
 
     /**
      * checkOut checks out an available book or throws error message for attempt
      * to check out unavailable book
      */
     public void checkOut(){
+        //save user input as book selection
+        bookSelection = scanner.nextLine();
+
         //check if bookSelection is an int
         try
         {
@@ -125,6 +129,50 @@ public class Biblioteca {
 
                     // Notify user of successful checkout
                     printStream.println("You successfully checked out book: " + bookSelection);
+                }
+            }
+            else {
+                printStream.println("Book does not exist, try again");
+            }
+        }
+
+        // CASE: user input was not an integer
+        catch (NumberFormatException e)
+        {
+            printStream.println("Invalid selection, please enter a book ID and try again");
+        }
+    }
+
+    /**
+     * checkOut checks out an available book or throws error message for attempt
+     * to check out unavailable book
+     */
+    public void returnBook(){
+        //save user input as book selection
+        bookSelection = scanner.nextLine();
+
+        //check if bookSelection is an int
+        try
+        {
+            // checking valid integer using parseInt() method
+            int id = Integer.parseInt(bookSelection);
+
+            // check if book is in list bounds
+            if(id <= bookList.numBooks){
+                // Fetch selected book from bookList
+                Book book = bookList.getBookByID(bookSelection);
+
+                // Check if book is already checked out
+                if (!book.isCheckedOut())
+                    // if so, error message
+                    printStream.println("Book is already at the library.");
+                else {
+                    // mark book as returned
+                    book.setReturned();
+                    bookList.updateAvailBooks(book);
+
+                    // Notify user of successful return
+                    printStream.println("You successfully returned book: " + bookSelection);
                 }
             }
             else {
