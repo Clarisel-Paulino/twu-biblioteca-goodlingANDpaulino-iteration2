@@ -18,7 +18,10 @@ public class MovieList extends RentalList {
         Movie movie2 = new Movie("Once upon a Time...", "Quentin T", 2019, 8);
         Movie movie3 = new Movie("Aladdin", "Walt Disney", 1992, 10);
 
-        movie3.setCheckedOut();
+        //get user to set who checked out book 3 for testing
+        User user = new User("222-7890", "*******",
+                "Clarisel Goodling", "megan.paulino@gmail.com", "407-773-1551");
+        movie3.setCheckedOut(user);
 
         initAdd(movie1);
         initAdd(movie2);

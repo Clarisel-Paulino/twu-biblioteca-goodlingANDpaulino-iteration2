@@ -20,7 +20,10 @@ public class BookList extends RentalList{
         Book book2 = new Book("Beloved", "Toni Morrison", 1987);
         Book book3 = new Book("Moment of Lift", "Melinda Gates", 2018);
 
-        book3.setCheckedOut();
+        //get user to set who checked out book 3 for testing
+        User user = new User("222-7890", "*******",
+                "Clarisel Goodling", "megan.paulino@gmail.com", "407-773-1551");
+        book3.setCheckedOut(user);
 
         initAdd(book1);
         initAdd(book2);
