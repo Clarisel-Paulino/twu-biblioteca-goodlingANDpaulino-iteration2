@@ -9,6 +9,7 @@ public class Biblioteca {
     public Menu menu;
     BookList bookList;
     MovieList movieList;
+    public User currentUser;
 
     // User input for item selection
     private String itemSelection;
@@ -18,6 +19,8 @@ public class Biblioteca {
 
     // Type of RentalItem selected
     private RentalItem rentalItemType;
+
+
 
     /**
      * Biblioteca Constructor
@@ -31,6 +34,7 @@ public class Biblioteca {
         this.menu = new Menu(scanner);
         this.bookList = new BookList();
         this.movieList = new MovieList();
+        this.currentUser = null;
     }
 
     /**
@@ -105,6 +109,15 @@ public class Biblioteca {
                     System.exit(0);
                     break;
 
+                case 6:
+                    if(currentUser == null){
+                        //logIn();
+                    }
+                    else{
+                        printStream.println(currentUser.getUserInfo());
+                    }
+                    break;
+
                 case -1: // input was not an integer
                     printStream.println("Error: Invalid Selection. Enter an ID.\n");
                     break;
@@ -113,6 +126,17 @@ public class Biblioteca {
                     printStream.println("Error: Invalid Selection. Try Again.\n");
                     break;
             }
+    }
+
+    /**
+     * log in a user
+     */
+    public void logIn(String logInCredentials){
+        //parse log in credentials
+
+        //verify that fake user's name and password match
+
+        //set cur user to fake user
     }
 
     /**

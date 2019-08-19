@@ -10,7 +10,7 @@ public class User {
     private String phoneNumber;
     private ArrayList<RentalItem> checkedOutItems;
 
-    public void User(String libraryNumber, String password, String name, String  email, String phoneNumber){
+    public User(String libraryNumber, String password, String name, String  email, String phoneNumber){
         this.libraryNumber = libraryNumber;
         this.password = password;
         this.name = name;
@@ -20,10 +20,10 @@ public class User {
     }
 
     public String getUserInfo(){
-        String ln = String.format("%-30s", "Library Number: ");
-        String nm = String.format("%-30s", "Name: ");
-        String em = String.format("%-30s", "Email: ");
-        String pn = String.format("%-30s", "Phone Number:" );
+        String ln = String.format("%-20s", "Library Number: ");
+        String nm = String.format("%-20s", "Name: ");
+        String em = String.format("%-20s", "Email: ");
+        String pn = String.format("%-20s", "Phone Number:" );
         String line = "\n===========================================\n";
 
         StringBuilder sb = new StringBuilder();
@@ -33,6 +33,13 @@ public class User {
         sb.append(em + email + "\n");
         sb.append(pn + phoneNumber + "\n");
         sb.append(line);
+        return sb.toString();
+    }
+
+    public String getLogInCredentials(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(name + ',' + password);
+
         return sb.toString();
     }
 }
