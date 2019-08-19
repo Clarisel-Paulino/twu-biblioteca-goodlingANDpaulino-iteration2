@@ -5,6 +5,12 @@ Clarisel Paulino
 =========================================
 
 --------------------------
+What is Biblioteca?
+--------------------------
+* Biblioteca is a simulation of a library management system that allows users to
+ login and check out or return books and movies
+
+--------------------------
 How to run app
 --------------------------
 
@@ -41,6 +47,8 @@ BOOK ID   TITLE               AUTHOR              YEAR
     ENTER YOUR LIBRARY NUMBER AND PASSWORD SEPARATED BY A COMMA
 
     >> Enter "222-7890,*******" into the command line to log in as the preregistered user
+
+* This should make the checkout and returning functions available to you
 
 !! WE HOPE YOU ENJOY OUR BIBLIOTECA APP !!
 
