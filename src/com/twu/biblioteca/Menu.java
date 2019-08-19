@@ -23,14 +23,14 @@ public class Menu {
         // Initial Menu Options
         sb.append("\nSelect an option from the menu below:\n 1. See List of Books\n" +
                 " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n");
-        
+
         // User is logged in
         if(userLoggedIn){
-            sb.append("6. See My Account Info\n");
+            sb.append(" 6. See My Account Info\n");
         }
         // User is not logged in
         else {
-            sb.append("6. Log In\n");
+            sb.append(" 6. Log In\n");
         }
         return sb.toString();
     }

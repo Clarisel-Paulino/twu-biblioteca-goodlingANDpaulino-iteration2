@@ -6,7 +6,7 @@ public class Biblioteca {
 
     private PrintStream printStream;
     private ScannerWrapper scanner;
-    private Menu menu;
+    public Menu menu;
     BookList bookList;
     MovieList movieList;
 
