@@ -92,7 +92,7 @@ public class Biblioteca {
                 case 3:
                     printStream.println("\nSELECT A BOOK TO RETURN BY ID" + "\n     OR \n" +
                                     "TYPE Q TO QUIT AND RETURN TO MAIN MENU");
-                    returnBook();
+                    //returnBook();
                     break;
 
                 case 4:

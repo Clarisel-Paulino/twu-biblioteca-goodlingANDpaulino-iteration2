@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class MovieList extends RentalList {
 
-    // List of all movies in library
-    private ArrayList<Movie> movieList;
-    // List of movies available for checkout
-    public ArrayList<Movie> availMovieList;
-
-    // Current number of movies, used to give movie ID
-    public int numMovies;
+//    // List of all movies in library
+//    private ArrayList<Movie> movieList;
+//    // List of movies available for checkout
+//    public ArrayList<Movie> availMovieList;
+//
+//    // Current number of movies, used to give movie ID
+//    public int numMovies;
 
     /**
      * MovieList Constructor
      * Initializes availMovieList and movieList
      */
     public MovieList(){
-        this.availMovieList = new ArrayList<Movie>();
-        this.movieList = new ArrayList<Movie>();
+//        this.availMovieList = new ArrayList<Movie>();
+//        this.movieList = new ArrayList<Movie>();
         initMovieLists();
     }
 
@@ -33,36 +33,36 @@ public class MovieList extends RentalList {
 
         movie3.setCheckedOut();
 
-        initAddMovie(movie1);
-        initAddMovie(movie2);
-        initAddMovie(movie3);
+        initAdd(movie1);
+        initAdd(movie2);
+        initAdd(movie3);
     }
 
-    /**
-     * initAddMovie
-     * @param movie - instance of Movie object
-     * adds movie to movieList (and availMovieList) and sets the movie ID
-     */
-    private void initAddMovie(Movie movie){
-        numMovies++;
-        movie.setId(numMovies);
-        this.movieList.add(movie);
-
-        // Only add movie to availMovieList if not checked out
-        if(!movie.isCheckedOut()){
-            this.availMovieList.add(movie);
-        }
-    }
-
-    /**
-     * getMovieByID
-     * @param idString - movie id as a string
-     * @return Movie object with the idString as its id
-     */
-    public Movie getMovieByID(String idString){
-        int id = Integer.parseInt(idString);
-        return movieList.get(id - 1);
-    }
+//    /**
+//     * initAddMovie
+//     * @param movie - instance of Movie object
+//     * adds movie to movieList (and availMovieList) and sets the movie ID
+//     */
+//    private void initAddMovie(Movie movie){
+//        numMovies++;
+//        movie.setId(numMovies);
+//        this.movieList.add(movie);
+//
+//        // Only add movie to availMovieList if not checked out
+//        if(!movie.isCheckedOut()){
+//            this.availMovieList.add(movie);
+//        }
+//    }
+//
+//    /**
+//     * getMovieByID
+//     * @param idString - movie id as a string
+//     * @return Movie object with the idString as its id
+//     */
+//    public Movie getMovieByID(String idString){
+//        int id = Integer.parseInt(idString);
+//        return movieList.get(id - 1);
+//    }
 
     /**
      * prints availMovieList
@@ -79,27 +79,27 @@ public class MovieList extends RentalList {
         StringBuilder sb = new StringBuilder();
         sb.append(i+ t + d + y + r + line);
 
-        for(Movie movie : availMovieList){
-            sb.append(movie.toString());
+        for(RentalItem rental : getAvailItemList()){
+            sb.append(rental.toString());
         }
         return sb.toString();
     }
 
-    public ArrayList<Movie> getMovieList(){
-        return availMovieList;
-    }
-
-    /**
-     * updateAvailMovies
-     * @param movie -- Movie object to be removed
-     *  Removes movie from the list of available movies
-     */
-    public void updateAvailMovies(Movie movie){
-        if (movie.isCheckedOut()){
-            availMovieList.remove(movie);
-        }
-        else{
-            availMovieList.add(movie);
-        }
-    }
+//    public ArrayList<Movie> getMovieList(){
+//        return availMovieList;
+//    }
+//
+//    /**
+//     * updateAvailMovies
+//     * @param movie -- Movie object to be removed
+//     *  Removes movie from the list of available movies
+//     */
+//    public void updateAvailMovies(Movie movie){
+//        if (movie.isCheckedOut()){
+//            availMovieList.remove(movie);
+//        }
+//        else{
+//            availMovieList.add(movie);
+//        }
+//    }
 }
