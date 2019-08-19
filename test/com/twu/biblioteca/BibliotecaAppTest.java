@@ -105,7 +105,8 @@ public class BibliotecaAppTest {
     @Test
     public void shouldDisplayMenuWithOptionsBeforeBookList(){
         testBib.displayMenu();
-        String expected = "Select an option from the menu below:\n1. See List of Books\n2. Exit Biblioteca\n";
+        String expected = "Select an option from the menu below:\n 1. See List of Books\n" +
+                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
         verify(mockPrintStream).println(expected);
     }
 
@@ -127,9 +128,9 @@ public class BibliotecaAppTest {
     // STORY 1.6 QUIT APPLICATION
     //TODO: Test if exited app? Maybe test exit code?
     @Test
-    public void shouldexitForSelectionTwo() throws Exception{
+    public void shouldexitForSelection5() throws Exception{
 
-            when (mockScannerWrapper.nextLine()).thenReturn("2");
+            when (mockScannerWrapper.nextLine()).thenReturn("5");
             testBib.acceptOptionInput();
             assertEquals("Exit status", 0);
     }
@@ -217,7 +218,13 @@ public class BibliotecaAppTest {
         verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
     }
 
-    // STORY 1.10 UNSUCCESSFUL MESSAGE FOR CHECKING OUT
+    // STORY 1.10 RETURN A BOOK
+    @Test
+    public void shouldDisplaySuccessMessageForReturnBook(){
+        
+    }
+
+
 
     //notify if successfully book is returned
 

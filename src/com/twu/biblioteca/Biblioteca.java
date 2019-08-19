@@ -8,7 +8,7 @@ public class Biblioteca {
     private PrintStream printStream;
     private ScannerWrapper scanner;
 
-    private Menu menu;
+    private String menu;
     public BookList bookList;
 
     // User input for menu option and book selection
@@ -24,7 +24,8 @@ public class Biblioteca {
     public Biblioteca(PrintStream printStream, ScannerWrapper scanner){
         this.printStream = printStream;
         this.scanner = scanner;
-        this.menu = new Menu(printStream, scanner);
+        this.menu = "Select an option from the menu below:\n 1. See List of Books\n" +
+                " 2. See List of Movies\n 3. Return Book\n 4. Return Movie\n 5. Exit Biblioteca\n";
         this.bookList = new BookList();
     }
 
@@ -47,7 +48,7 @@ public class Biblioteca {
      * displays the menu of options
      */
     public void displayMenu(){
-        printStream.println(menu.printMenuOptions());
+        printStream.println(menu);
     }
 
     /**
@@ -59,18 +60,30 @@ public class Biblioteca {
         makeSelection();
     }
 
-    public void makeSelection(){
-        //TODO: CASE / SWITCH
-        if (menuSelection.equals("1")){
-            printBookList();
-            printStream.println("SELECT A BOOK BY ID");
-            selectBook();
+    public void makeSelection() {
+
+        //check if menuSelection is an int
+        try {
+            // checking valid integer using parseInt() method
+            int menuSelect = Integer.parseInt(menuSelection);
+
+            switch (menuSelect) {
+
+                case 1:
+                    printBookList();
+                    printStream.println("SELECT A BOOK BY ID");
+                    selectBook();
+                    break;
+
+                case 5:
+                    printStream.println("Thanks, come again!");
+                    System.exit(0);
+                    break;
+            }
         }
-        else if(menuSelection.equals("2")){
-            printStream.println("Thanks, come again!" );
-            System.exit(0);
-        }
-        else{
+
+        // CASE: user input was not an integer
+        catch (NumberFormatException e){
             printStream.println("Error: Invalid Selection. Try Again.\n");
         }
     }
