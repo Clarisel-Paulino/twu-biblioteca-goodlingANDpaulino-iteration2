@@ -40,6 +40,5 @@ public class Menu {
     public int getMenuSelection(){
         return menuSelection;
     }
-
 }
 

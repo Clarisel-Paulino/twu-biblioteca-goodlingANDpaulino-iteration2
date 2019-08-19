@@ -1,14 +1,12 @@
 package com.twu.biblioteca;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 public class Biblioteca {
 
     private PrintStream printStream;
     private ScannerWrapper scanner;
     private Menu menu;
-
     BookList bookList;
 
     // User input for book selection
@@ -89,7 +87,6 @@ public class Biblioteca {
                     printStream.println("Error: Invalid Selection. Try Again.\n");
                     break;
             }
-
     }
 
     /**
@@ -193,6 +190,4 @@ public class Biblioteca {
             makeSelection();
         }
     }
-
-
 }

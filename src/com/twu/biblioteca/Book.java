@@ -7,7 +7,6 @@ public class Book {
     private String title;
     private int id;
 
-
     public Book(final String title, final String author, final int year){
         this.title = title;
         this.author = author;
@@ -43,7 +42,6 @@ public class Book {
         return checkedOut;
     }
 
-    //TODO also print by ID
     public String toString(){
         String i = String.format("%-10s", id);
         String t = String.format("%-20s", title);

@@ -1,18 +1,12 @@
 package com.twu.biblioteca;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.Assert;
 //import org.junit.contrib.java.lang.system.Assertion;
 //import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,16 +34,6 @@ public class BibliotecaAppTest {
 
         //initialize library instance
         testBib = new Biblioteca(mockPrintStream, mockScannerWrapper);
-
-//        //initialize list of books
-//        Book oneBook = new Book("Crazy", "Kevin", 1010);
-//        Book twoBook = new Book("Bible", "Jesus", -1);
-//        Book threeBook = new Book("Moment of Lift", "Melinda Gates", 2018);
-//
-//        //add books to library
-//        testBib.addBook(oneBook);
-//        testBib.addBook(twoBook);
-//        testBib.addBook(threeBook);
     }
 
     // STORY 1.1 VIEW WELCOME MESSAGE
@@ -60,32 +44,6 @@ public class BibliotecaAppTest {
                 "Your librarians Megan and Clarisel at your service.");
     }
 
-//    @Test
-//    public void shouldPrintBookListWithOneBook(){
-//        //add relevant books here
-//        Book oneBook = new Book("1984", "George Orwell", 1961);
-//
-//        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook));
-//
-//        testBib.setBookList(bl);
-//        testBib.printBookList();
-//
-//        assertThat(outputStream.toString(), is(oneBook.getTitle()));
-//    }
-
-//    @Test
-//    public void shouldPrintTwoBookTitlesWhenIStarttheApp() {
-//        //add relevant books here
-//        Book oneBook = new Book("Crazy", "Kevin", 1010);
-//        Book twoBook = new Book("Bible", "Jesus", -1);
-//
-//        ArrayList<Book> bl = new ArrayList<Book>(Arrays.asList(oneBook, twoBook));
-//
-//        testBib.setBookList(bl);
-//        testBib.printBookList();
-//
-//        assertThat(outputStream.toString(), is(oneBook.getTitle() + '\n' + twoBook.getTitle() + '\n'));
-//    }
     // STORY 1.2 VIEW LIST OF ALL BOOKS
     //TODO fix test - loops on 1
     @Test
@@ -93,7 +51,7 @@ public class BibliotecaAppTest {
         when(mockScannerWrapper.nextLine()).thenReturn("1");
         testBib.makeSelection();
         verify(mockPrintStream).println(testBib.bookList.toString());
-}
+    }
 
     // STORY 1.3 VIEW AUTHOR AND PUBLICATION YEAR
     @Test
@@ -251,7 +209,6 @@ public class BibliotecaAppTest {
     }
 
     // STORY 1.11 NOTIFIED ON UNSUCCESSFUL RETURN
-
     // CASE: Book exists but is already checked out
     @Test
     public void shouldDisplayUnsuccessMessageForReturnAvailableBook(){
@@ -281,5 +238,4 @@ public class BibliotecaAppTest {
 
         verify(mockPrintStream).println("Invalid selection, please enter a book ID and try again");
     }
-
 }
