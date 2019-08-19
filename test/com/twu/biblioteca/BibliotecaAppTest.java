@@ -335,7 +335,7 @@ public class BibliotecaAppTest {
         // set user as logged in
         testBib.menu.setUserLoggedIn();
         testBib.currentUser = testBib.userList.getUser("222-7890");
-        
+
         testBib.checkOut();
         testBib.printMovieList();
         verify(mockPrintStream).println(testBib.movieList.toString());

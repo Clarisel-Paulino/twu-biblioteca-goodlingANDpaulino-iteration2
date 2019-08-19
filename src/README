@@ -1,0 +1,47 @@
+=========================================
+Biblioteca Application
+Megan Goodling
+Clarisel Paulino
+=========================================
+
+--------------------------
+How to run app
+--------------------------
+
+* App will prompt you to enter an integer to execute the desired function or
+    type q to quit that current option
+
+* To select a book or movie, enter the item's ID
+
+* For example, if you want to check out the book "Beloved" from the list below
+
+BOOK ID   TITLE               AUTHOR              YEAR
+================================================================
+1         Crazy Rich Asians   Kevin Kwan          2013
+2         Beloved             Toni Morrison       1987
+
+>> Enter "2" into the command line when prompted with this message
+
+        SELECT A BOOK TO CHECK OUT BY ID
+                    OR
+        TYPE Q TO QUIT AND RETURN TO MAIN MENU
+
+* In order to checkout or return a book or movie, the user must first login
+    * this is done by choosing option 6 from the menu below
+
+       Select an option from the menu below:
+        1. See List of Books
+        2. See List of Movies
+        3. Return Book
+        4. Return Movie
+        5. Exit Biblioteca
+        6. Log In
+
+* When you see the following message :
+    ENTER YOUR LIBRARY NUMBER AND PASSWORD SEPARATED BY A COMMA
+
+    >> Enter "222-7890,*******" into the command line to log in as the preregistered user
+
+!! WE HOPE YOU ENJOY OUR BIBLIOTECA APP !!
+
+ -- Clarisel and Megan
